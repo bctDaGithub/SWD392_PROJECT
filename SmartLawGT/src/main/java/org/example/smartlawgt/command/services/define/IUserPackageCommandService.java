@@ -1,0 +1,7 @@
+package org.example.smartlawgt.command.services.define;
+
+import org.example.smartlawgt.command.entities.UserPackageEntity;
+
+public interface IUserPackageCommandService {
+    UserPackageEntity recordPurchase(UserPackageEntity purchase);
+}
