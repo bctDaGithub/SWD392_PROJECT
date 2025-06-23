@@ -4,12 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import okhttp3.*;
-import org.example.smartlawgt.command.entities.UsagePackageEntity;
-import org.example.smartlawgt.command.entities.UserEntity;
-import org.example.smartlawgt.command.repositories.UserPackageRepository;
-import org.example.smartlawgt.command.repositories.UserRepository;
 import org.example.smartlawgt.query.documents.ChatHistoryDocument;
-import org.example.smartlawgt.query.documents.UsagePackageDocument;
 import org.example.smartlawgt.query.documents.UserPackageDocument;
 import org.example.smartlawgt.query.repositories.ChatHistoryMongoRepository;
 import org.example.smartlawgt.query.repositories.UserPackageMongoRepository;
@@ -18,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 
@@ -27,6 +23,7 @@ public class GeminiApiService {
 
     private final CustomDataService customDataService;
     private final ChatHistoryMongoRepository chatHistoryRepository;
+    private final UserPackageMongoRepository userPackageMongoRepository;
 
     @Value("${gemini.api.key}")
     private String apiKey;
@@ -34,10 +31,30 @@ public class GeminiApiService {
     private final OkHttpClient client = new OkHttpClient();
 
     public String getGeminiResponse(String prompt, UUID userId) throws IOException {
+        // 1. Lấy gói còn hiệu lực
+        List<UserPackageDocument> activePackages = userPackageMongoRepository.findActiveSubscriptions(userId, LocalDateTime.now());
 
+        if (activePackages.isEmpty()) {
+            return "Bạn không có gói sử dụng hợp lệ để sử dụng AI.";
+        }
 
+        // 2. Ưu tiên gói có dailyLimit cao nhất
+        UserPackageDocument activePackage = activePackages.stream()
+                .max(Comparator.comparingInt(UserPackageDocument::getDailyLimit))
+                .orElse(null);
 
+        int dailyLimit = activePackage.getDailyLimit();
 
+        // 3. Kiểm tra số lượt hỏi còn lại
+        LocalDateTime start = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+        LocalDateTime end = LocalDateTime.now().withHour(23).withMinute(59).withSecond(59).withNano(999_999_999);
+
+        long askedCountBefore = chatHistoryRepository.countByUserIdAndTimestampBetween(userId, start, end);
+        if (askedCountBefore >= dailyLimit) {
+            return "Bạn đã sử dụng hết số lượt hỏi hôm nay. Vui lòng quay lại vào ngày mai.";
+        }
+
+        // 4. Gửi prompt cho Gemini
         String customData = customDataService.loadCustomData();
         String fullPrompt = "Dựa trên thông tin sau:\n" + customData +
                 "\nNếu câu hỏi không liên quan đến thông tin trên, hãy trả lời là không có thông tin nào liên quan." +
@@ -62,7 +79,6 @@ public class GeminiApiService {
 
             String responseBody = response.body().string();
 
-            // ✅ Extract only the answer text from Gemini response
             ObjectMapper mapper = new ObjectMapper();
             JsonNode root = mapper.readTree(responseBody);
             String answerText = root.path("candidates").get(0)
@@ -77,7 +93,11 @@ public class GeminiApiService {
                     .build();
 
             chatHistoryRepository.save(history);
-            return answerText;
+
+            long askedCountAfter = chatHistoryRepository.countByUserIdAndTimestampBetween(userId, start, end);
+            int remaining = dailyLimit - (int) askedCountAfter;
+
+            return answerText + "\n\n(Số lượt còn lại hôm nay: " + remaining + "/" + dailyLimit + ")";
         }
     }
 

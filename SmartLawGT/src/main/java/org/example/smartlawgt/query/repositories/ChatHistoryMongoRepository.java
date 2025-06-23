@@ -13,5 +13,6 @@ public interface ChatHistoryMongoRepository extends MongoRepository<ChatHistoryD
     List<ChatHistoryDocument> findByUserId(UUID userId);
     long countByUserIdAndTimestampBetween(UUID userId, LocalDateTime start, LocalDateTime end);
     List<ChatHistoryDocument> findByUserIdOrderByTimestampDesc(UUID userId);
+    long deleteByTimestampBefore(LocalDateTime cutoffDate);
 
 }

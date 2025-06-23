@@ -31,4 +31,5 @@ public interface UserPackageMongoRepository extends MongoRepository<UserPackageD
 
     @Query("{'userId': ?0, 'status': 'ACTIVE', 'expirationDate': {$gt: ?1}}")
     List<UserPackageDocument> findActiveSubscriptions(UUID userId, LocalDateTime now);
+
 }
