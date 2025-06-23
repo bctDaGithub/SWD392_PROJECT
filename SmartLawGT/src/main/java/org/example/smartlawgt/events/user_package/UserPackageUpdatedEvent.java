@@ -1,6 +1,8 @@
 package org.example.smartlawgt.events.user_package;
 
 import lombok.Data;
+import org.example.smartlawgt.command.entities.TransactionMethod;
+import org.example.smartlawgt.command.entities.UserPackageStatus;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -11,7 +13,11 @@ public class UserPackageUpdatedEvent {
     private UUID userId;
     private UUID usagePackageId;
     private String packageName;
+    private Float packagePrice;
+    private Integer dailyLimit;
+    private Integer daysLimit;
     private LocalDateTime transactionDate;
     private LocalDateTime expirationDate;
-    private boolean isActive;
+    private TransactionMethod transactionMethod;
+    private UserPackageStatus status;
 }

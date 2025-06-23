@@ -11,4 +11,5 @@ public interface IUserPackageQueryService {
     Page<UserPackageDocument> getUserSubscriptionHistory(UUID userId, Pageable pageable);
     List<UserPackageDocument> findExpiredSubscriptions();
     List<UserPackageDocument> searchSubscriptionsByPackageName(String packageName);
+    List<UserPackageDocument> findAllActiveSubscriptions();
 }

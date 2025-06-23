@@ -18,7 +18,7 @@ public class UsagePackageEventListener {
     public void handleUsagePackageCreated(UsagePackageCreatedEvent event) {
         LocalDateTime now = LocalDateTime.now();
         UsagePackageDocument document = UsagePackageDocument.builder()
-                .usagePackageId(event.getUsagePackageId()) // This will match SQL Server ID
+                .usagePackageId(event.getUsagePackageId())
                 .name(event.getName())
                 .description(event.getDescription())
                 .price(event.getPrice())

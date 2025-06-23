@@ -22,4 +22,17 @@ public class UserPackageCommandController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{id}/block")
+    public ResponseEntity<Void> blockUserPackage(@PathVariable Long id) {
+        service.blockUserPackage(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}/unblock")
+    public ResponseEntity<Void> unblockUserPackage(@PathVariable Long id) {
+        service.unblockUserPackage(id);
+        return ResponseEntity.ok().build();
+    }
+
+
 }

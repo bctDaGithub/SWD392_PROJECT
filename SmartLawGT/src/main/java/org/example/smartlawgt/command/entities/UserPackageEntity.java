@@ -2,9 +2,9 @@ package org.example.smartlawgt.command.entities;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.example.smartlawgt.command.entities.UserPackageStatus;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Entity
 @Table(name = "user_package")
@@ -34,4 +34,17 @@ public class UserPackageEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "transaction_method")
     private TransactionMethod transactionMethod;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private UserPackageStatus status;
+
+    @Column(name = "expiration_date")
+    private LocalDateTime expirationDate;
+
+    @Column(name = "created_date")
+    private LocalDateTime createdDate;
+
+    @Column(name = "updated_date")
+    private LocalDateTime updatedDate;
 }

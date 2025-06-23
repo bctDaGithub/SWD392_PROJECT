@@ -39,4 +39,9 @@ public class UserPackageQueryController {
     public ResponseEntity<List<UserPackageDocument>> searchByPackageName(@RequestParam String packageName) {
         return ResponseEntity.ok(userPackageQueryService.searchSubscriptionsByPackageName(packageName));
     }
+
+    @GetMapping
+    public ResponseEntity<List<UserPackageDocument>> findAllSubscription(){
+        return ResponseEntity.ok(userPackageQueryService.findAllActiveSubscriptions());
+    }
 }

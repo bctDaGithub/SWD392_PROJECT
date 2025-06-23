@@ -1,6 +1,7 @@
 package org.example.smartlawgt.query.services.implement;
 
 import lombok.RequiredArgsConstructor;
+import org.example.smartlawgt.command.entities.UserPackageStatus;
 import org.example.smartlawgt.query.documents.UserPackageDocument;
 import org.example.smartlawgt.query.repositories.UserPackageMongoRepository;
 import org.example.smartlawgt.query.services.define.IUserPackageQueryService;
@@ -29,11 +30,16 @@ public class UserPackageQueryService implements IUserPackageQueryService {
 
     @Override
     public List<UserPackageDocument> findExpiredSubscriptions() {
-        return userPackageMongoRepository.findByExpirationDateBeforeAndIsActiveTrue(LocalDateTime.now());
+        return userPackageMongoRepository.findByExpirationDateBeforeAndStatus(LocalDateTime.now(), UserPackageStatus.EXPIRED);
     }
 
     @Override
     public List<UserPackageDocument> searchSubscriptionsByPackageName(String packageName) {
         return userPackageMongoRepository.findByPackageNameContainingIgnoreCase(packageName);
+    }
+
+    @Override
+    public List<UserPackageDocument> findAllActiveSubscriptions() {
+        return userPackageMongoRepository.findAll();
     }
 }

@@ -29,11 +29,26 @@ public class RabbitMQConfig {
     public static final String USER_PACKAGE_CREATED_QUEUE = "userPackageCreatedQueue";
     public static final String USER_PACKAGE_UPDATED_QUEUE = "userPackageUpdatedQueue";
     public static final String USER_PACKAGE_EXPIRED_QUEUE = "userPackageExpiredQueue";
+    public static final String USER_PACKAGE_STATUS_QUEUE = "userPackageStatusQueue";
+
 
     // ROUTING KEYS for user package events
     public static final String USER_PACKAGE_ROUTING_KEY_CREATED = "userPackage.created";
     public static final String USER_PACKAGE_ROUTING_KEY_UPDATED = "userPackage.updated";
     public static final String USER_PACKAGE_ROUTING_KEY_EXPIRED = "userPackage.expired";
+    public static final String USER_PACKAGE_ROUTING_KEY_STATUS = "userPackage.status";
+
+    @Bean
+    public Queue userPackageStatusQueue() {
+        return new Queue(USER_PACKAGE_STATUS_QUEUE, false);
+    }
+
+    @Bean
+    public Binding userPackageStatusBinding() {
+        return BindingBuilder.bind(userPackageStatusQueue())
+                .to(userPackageExchange())
+                .with(USER_PACKAGE_ROUTING_KEY_STATUS);
+    }
 
     @Bean
     public TopicExchange usagePackageExchange() {
