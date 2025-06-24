@@ -1,4 +1,4 @@
-package org.example.smartlawgt.ai.services;
+package org.example.smartlawgt.integration.ai.services;
 
 import org.springframework.stereotype.Service;
 

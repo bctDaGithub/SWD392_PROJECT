@@ -1,7 +1,7 @@
-package org.example.smartlawgt.ai.controllers;
+package org.example.smartlawgt.integration.ai.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.smartlawgt.ai.services.GeminiApiService;
+import org.example.smartlawgt.integration.ai.services.GeminiApiService;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
