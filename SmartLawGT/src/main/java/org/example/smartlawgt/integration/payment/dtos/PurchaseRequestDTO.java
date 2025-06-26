@@ -1,4 +1,4 @@
-package org.example.smartlawgt.integration.payment.dto;
+package org.example.smartlawgt.integration.payment.dtos;
 
 
 import org.example.smartlawgt.command.entities.TransactionMethod;

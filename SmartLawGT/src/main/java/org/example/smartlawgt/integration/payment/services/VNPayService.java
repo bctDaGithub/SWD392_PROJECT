@@ -1,8 +1,8 @@
 package org.example.smartlawgt.integration.payment.services;
 
 import org.example.smartlawgt.integration.payment.config.VNPayConfig;
-import org.example.smartlawgt.integration.payment.dto.PurchaseRequestDTO;
-import org.example.smartlawgt.integration.payment.dto.VNPayResponseDTO;
+import org.example.smartlawgt.integration.payment.dtos.PurchaseRequestDTO;
+import org.example.smartlawgt.integration.payment.dtos.VNPayResponseDTO;
 import org.example.smartlawgt.integration.payment.utils.VNPayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

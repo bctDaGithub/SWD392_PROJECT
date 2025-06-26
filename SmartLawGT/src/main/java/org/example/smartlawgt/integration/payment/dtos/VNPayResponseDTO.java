@@ -1,4 +1,4 @@
-package org.example.smartlawgt.integration.payment.dto;
+package org.example.smartlawgt.integration.payment.dtos;
 
 public class VNPayResponseDTO {
     private String status;

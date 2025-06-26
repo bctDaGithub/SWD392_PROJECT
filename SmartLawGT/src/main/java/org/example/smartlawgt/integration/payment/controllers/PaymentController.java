@@ -1,8 +1,8 @@
 package org.example.smartlawgt.integration.payment.controllers;
 
 import org.example.smartlawgt.command.entities.TransactionMethod;
-import org.example.smartlawgt.integration.payment.dto.PurchaseRequestDTO;
-import org.example.smartlawgt.integration.payment.dto.VNPayResponseDTO;
+import org.example.smartlawgt.integration.payment.dtos.PurchaseRequestDTO;
+import org.example.smartlawgt.integration.payment.dtos.VNPayResponseDTO;
 import org.example.smartlawgt.integration.payment.services.PaymentFactory;
 import org.example.smartlawgt.integration.payment.services.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
