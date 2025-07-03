@@ -13,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/vnpay")
+@RequestMapping("api/v1/vnpay")
 public class PaymentController {
 
     @Autowired

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/gemini")
+@RequestMapping("/api/v1/gemini")
 @RequiredArgsConstructor
 public class GeminiController {
 
