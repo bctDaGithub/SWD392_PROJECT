@@ -1,7 +1,7 @@
 package org.example.smartlawgt.integration.payment.services;
 
 import org.example.smartlawgt.integration.payment.config.VNPayConfig;
-import org.example.smartlawgt.integration.payment.dtos.PurchaseRequestDTO;
+import org.example.smartlawgt.integration.payment.dtos.PurchasePaymentRequestDTO;
 import org.example.smartlawgt.integration.payment.dtos.VNPayResponseDTO;
 import org.example.smartlawgt.integration.payment.utils.VNPayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class VNPayService implements PaymentService {
     private VNPayConfig vnPayConfig;
 
     @Override
-    public String createPaymentUrl(HttpServletRequest request, PurchaseRequestDTO requestDTO) {
+    public String createPaymentUrl(HttpServletRequest request, PurchasePaymentRequestDTO requestDTO) {
         String vnp_Version = "2.1.0";
         String vnp_Command = "pay";
         String vnp_OrderInfo = requestDTO.getOrderInfo();

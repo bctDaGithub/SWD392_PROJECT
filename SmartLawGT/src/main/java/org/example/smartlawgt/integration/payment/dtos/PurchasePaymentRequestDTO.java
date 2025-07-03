@@ -3,7 +3,7 @@ package org.example.smartlawgt.integration.payment.dtos;
 
 import org.example.smartlawgt.command.entities.TransactionMethod;
 
-public class PurchaseRequestDTO {
+public class PurchasePaymentRequestDTO {
     private long amount;
     private String orderInfo;
     private TransactionMethod transactionMethod;

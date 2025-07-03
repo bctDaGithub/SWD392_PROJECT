@@ -1,7 +1,7 @@
 package org.example.smartlawgt.integration.payment.controllers;
 
 import org.example.smartlawgt.command.entities.TransactionMethod;
-import org.example.smartlawgt.integration.payment.dtos.PurchaseRequestDTO;
+import org.example.smartlawgt.integration.payment.dtos.PurchasePaymentRequestDTO;
 import org.example.smartlawgt.integration.payment.dtos.VNPayResponseDTO;
 import org.example.smartlawgt.integration.payment.services.PaymentFactory;
 import org.example.smartlawgt.integration.payment.services.PaymentService;
@@ -20,7 +20,7 @@ public class PaymentController {
     private PaymentFactory paymentFactory;
 
     @PostMapping("/payment")
-    public ResponseEntity<String> createPayment(HttpServletRequest request, @RequestBody PurchaseRequestDTO requestDTO) {
+    public ResponseEntity<String> createPayment(HttpServletRequest request, @RequestBody PurchasePaymentRequestDTO requestDTO) {
         PaymentService paymentService = paymentFactory.getPaymentService(requestDTO.getTransactionMethod());
         String paymentUrl = paymentService.createPaymentUrl(request, requestDTO);
         return ResponseEntity.ok("redirect:" + paymentUrl);
