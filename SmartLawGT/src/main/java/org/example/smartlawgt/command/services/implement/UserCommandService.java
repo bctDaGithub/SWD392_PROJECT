@@ -8,6 +8,8 @@ import org.example.smartlawgt.events.user.UserCreatedEvent;
 import org.example.smartlawgt.events.user.UserStatusEvent;
 import org.example.smartlawgt.events.user.UserUpdatedEvent;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -19,11 +21,17 @@ public class UserCommandService implements IUserCommandService {
 
     private final UserRepository userRepository;
     private final RabbitTemplate rabbitTemplate;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserEntity createUser(UserEntity user) {
         user.setRole("USER");
         user.setUserId(UUID.randomUUID());
+
+        if (user.getPassword() != null) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         UserEntity savedUser = userRepository.save(user);
 
         UserCreatedEvent event = new UserCreatedEvent();
@@ -50,7 +58,7 @@ public class UserCommandService implements IUserCommandService {
             existing.setUserName(updatedUser.getUserName());
         }
         if (updatedUser.getPassword() != null) {
-            existing.setPassword(updatedUser.getPassword());
+            existing.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
         }
         if (updatedUser.getName() != null) {
             existing.setName(updatedUser.getName());
