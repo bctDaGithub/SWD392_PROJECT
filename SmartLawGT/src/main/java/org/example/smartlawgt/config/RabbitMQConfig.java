@@ -1,9 +1,12 @@
 package org.example.smartlawgt.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -50,6 +53,12 @@ public class RabbitMQConfig {
     public static final String USER_ROUTING_KEY_UPDATED = "user.updated";
     public static final String USER_ROUTING_KEY_BLOCKED = "user.blocked";
     public static final String USER_ROUTING_KEY_UNBLOCKED = "user.unblocked";
+
+    //notification
+    public static final String BROADCAST_QUEUE = "notification.broadcast.queue";
+    public static final String BROADCAST_KEY = "notification.broadcast";
+    public static final String NOTIFICATION_TOGGLED_QUEUE = "notification.toggled.queue";
+    public static final String NOTIFICATION_TOGGLED_KEY = "notification.toggled";
 
     @Bean
     public TopicExchange userExchange() {
@@ -225,4 +234,205 @@ public class RabbitMQConfig {
         template.setMessageConverter(jackson2JsonMessageConverter());
         return template;
     }
+    // Exchange
+    public static final String LAW_EXCHANGE = "law.exchange";
+    public static final String LAW_TYPE_EXCHANGE = "lawtype.exchange";
+
+    // Queue
+    public static final String LAW_CREATED_QUEUE = "law.created.queue";
+    public static final String LAW_UPDATED_QUEUE = "law.updated.queue";
+    public static final String LAW_DELETED_QUEUE = "law.deleted.queue";
+
+    public static final String LAW_TYPE_CREATED_QUEUE = "lawtype.created.queue";
+    public static final String LAW_TYPE_UPDATED_QUEUE = "lawtype.updated.queue";
+    public static final String LAW_TYPE_DELETED_QUEUE = "lawtype.deleted.queue";
+
+    // Routing Keys
+    public static final String LAW_CREATED_KEY = "law.created";
+    public static final String LAW_UPDATED_KEY = "law.updated";
+    public static final String LAW_DELETED_KEY = "law.deleted";
+
+    public static final String LAW_TYPE_CREATED_KEY = "lawtype.created";
+    public static final String LAW_TYPE_UPDATED_KEY = "lawtype.updated";
+    public static final String LAW_TYPE_DELETED_KEY = "lawtype.deleted";
+
+    @Bean
+    public TopicExchange lawExchange() {
+        return new TopicExchange(LAW_EXCHANGE);
+    }
+
+    @Bean
+    public Queue lawCreatedQueue() {
+        return QueueBuilder.durable(LAW_CREATED_QUEUE).build();
+    }
+
+    @Bean
+    public Queue lawUpdatedQueue() {
+        return QueueBuilder.durable(LAW_UPDATED_QUEUE).build();
+    }
+
+    @Bean
+    public Queue lawDeletedQueue() {
+        return QueueBuilder.durable(LAW_DELETED_QUEUE).build();
+    }
+
+
+    @Bean
+    public Binding lawCreatedBinding() {
+        return BindingBuilder
+                .bind(lawCreatedQueue())
+                .to(lawExchange())
+                .with(LAW_CREATED_KEY);
+    }
+
+    @Bean
+    public Binding lawUpdatedBinding() {
+        return BindingBuilder
+                .bind(lawUpdatedQueue())
+                .to(lawExchange())
+                .with(LAW_UPDATED_KEY);
+    }
+
+    @Bean
+    public Binding lawDeletedBinding() {
+        return BindingBuilder
+                .bind(lawDeletedQueue())
+                .to(lawExchange())
+                .with(LAW_DELETED_KEY);
+    }
+    // lawtype
+    @Bean
+    public TopicExchange lawTypeExchange() {
+        return new TopicExchange(LAW_TYPE_EXCHANGE);
+    }
+
+    @Bean
+    public Queue lawTypeCreatedQueue() {
+        return QueueBuilder.durable(LAW_TYPE_CREATED_QUEUE).build();
+    }
+
+    @Bean
+    public Queue lawTypeUpdatedQueue() {
+        return QueueBuilder.durable(LAW_TYPE_UPDATED_QUEUE).build();
+    }
+
+    @Bean
+    public Queue lawTypeDeletedQueue() {
+        return QueueBuilder.durable(LAW_TYPE_DELETED_QUEUE).build();
+    }
+
+    // LawType Bindings
+    @Bean
+    public Binding lawTypeCreatedBinding() {
+        return BindingBuilder
+                .bind(lawTypeCreatedQueue())
+                .to(lawTypeExchange())
+                .with(LAW_TYPE_CREATED_KEY);
+    }
+
+    @Bean
+    public Binding lawTypeUpdatedBinding() {
+        return BindingBuilder
+                .bind(lawTypeUpdatedQueue())
+                .to(lawTypeExchange())
+                .with(LAW_TYPE_UPDATED_KEY);
+    }
+
+    @Bean
+    public Binding lawTypeDeletedBinding() {
+        return BindingBuilder
+                .bind(lawTypeDeletedQueue())
+                .to(lawTypeExchange())
+                .with(LAW_TYPE_DELETED_KEY);
+    }
+
+    @Bean
+    public MessageConverter messageConverter() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        return new Jackson2JsonMessageConverter(objectMapper);
+    }
+    @Bean
+    public TopicExchange notificationExchange() {
+        return new TopicExchange("notification.exchange");
+    }
+
+    // Queues
+    @Bean
+    public Queue notificationCreatedQueue() {
+        return QueueBuilder.durable("notification.created.queue").build();
+    }
+    @Bean
+    public Queue notificationReadQueue() {
+        return new Queue("notification.read.queue", true);
+    }
+    @Bean
+    public Queue notificationEmailQueue() {
+        return QueueBuilder.durable("notification.email.queue").build();
+    }
+
+    @Bean
+    public Queue notificationPushQueue() {
+        return QueueBuilder.durable("notification.push.queue").build();
+    }
+
+    // Bindings
+    @Bean
+    public Binding notificationCreatedBinding() {
+        return BindingBuilder
+                .bind(notificationCreatedQueue())
+                .to(notificationExchange())
+                .with("notification.created");
+    }
+    @Bean
+    public Binding notificationReadBinding() {
+        return BindingBuilder
+                .bind(notificationReadQueue())
+                .to(notificationExchange())
+                .with("notification.read");
+    }
+    @Bean
+    public Binding notificationEmailBinding() {
+        return BindingBuilder
+                .bind(notificationEmailQueue())
+                .to(notificationExchange())
+                .with("notification.email");
+    }
+
+    @Bean
+    public Binding notificationPushBinding() {
+        return BindingBuilder
+                .bind(notificationPushQueue())
+                .to(notificationExchange())
+                .with("notification.push");
+    }
+    @Bean
+    public Queue broadcastQueue() {
+        return QueueBuilder.durable(BROADCAST_QUEUE).build();
+    }
+
+    @Bean
+    public Binding broadcastBinding() {
+        return BindingBuilder
+                .bind(broadcastQueue())
+                .to(notificationExchange())
+                .with(BROADCAST_KEY);
+    }
+    @Bean
+    public Queue notificationToggledQueue() {
+        return QueueBuilder.durable(NOTIFICATION_TOGGLED_QUEUE).build();
+    }
+
+    // Binding declaration
+    @Bean
+    public Binding notificationToggledBinding() {
+        return BindingBuilder
+                .bind(notificationToggledQueue())
+                .to(notificationExchange())
+                .with(NOTIFICATION_TOGGLED_KEY);
+    }
+
+
+
+
 }
