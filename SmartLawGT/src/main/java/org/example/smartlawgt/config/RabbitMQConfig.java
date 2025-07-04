@@ -12,6 +12,7 @@ public class RabbitMQConfig {
     // EXCHANGES
     public static final String USAGE_PACKAGE_EXCHANGE = "usagePackageExchange";
     public static final String USER_PACKAGE_EXCHANGE = "userPackageExchange";
+    public static final String USER_EXCHANGE = "userExchange";
 
     // QUEUES for usage package events
     public static final String USAGE_PACKAGE_CREATED_QUEUE = "usagePackageCreatedQueue";
@@ -37,6 +38,71 @@ public class RabbitMQConfig {
     public static final String USER_PACKAGE_ROUTING_KEY_UPDATED = "userPackage.updated";
     public static final String USER_PACKAGE_ROUTING_KEY_EXPIRED = "userPackage.expired";
     public static final String USER_PACKAGE_ROUTING_KEY_STATUS = "userPackage.status";
+
+    // QUEUES for user events
+    public static final String USER_CREATED_QUEUE = "userCreatedQueue";
+    public static final String USER_UPDATED_QUEUE = "userUpdatedQueue";
+    public static final String USER_BLOCKED_QUEUE = "userBlockedQueue";
+    public static final String USER_UNBLOCKED_QUEUE = "userUnblockedQueue";
+
+    // ROUTING KEYS for user events
+    public static final String USER_ROUTING_KEY_CREATED = "user.created";
+    public static final String USER_ROUTING_KEY_UPDATED = "user.updated";
+    public static final String USER_ROUTING_KEY_BLOCKED = "user.blocked";
+    public static final String USER_ROUTING_KEY_UNBLOCKED = "user.unblocked";
+
+    @Bean
+    public TopicExchange userExchange() {
+        return new TopicExchange(USER_EXCHANGE);
+    }
+
+    @Bean
+    public Queue userCreatedQueue() {
+        return new Queue(USER_CREATED_QUEUE);
+    }
+
+    @Bean
+    public Queue userUpdatedQueue() {
+        return new Queue(USER_UPDATED_QUEUE);
+    }
+
+    @Bean
+    public Queue userBlockedQueue() {
+        return new Queue(USER_BLOCKED_QUEUE);
+    }
+
+    @Bean
+    public Queue userUnblockedQueue() {
+        return new Queue(USER_UNBLOCKED_QUEUE);
+    }
+
+    @Bean
+    public Binding userCreatedBinding() {
+        return BindingBuilder.bind(userCreatedQueue())
+                .to(userExchange())
+                .with(USER_ROUTING_KEY_CREATED);
+    }
+
+    @Bean
+    public Binding userUpdatedBinding() {
+        return BindingBuilder.bind(userUpdatedQueue())
+                .to(userExchange())
+                .with(USER_ROUTING_KEY_UPDATED);
+    }
+
+    @Bean
+    public Binding userBlockedBinding() {
+        return BindingBuilder.bind(userBlockedQueue())
+                .to(userExchange())
+                .with(USER_ROUTING_KEY_BLOCKED);
+    }
+
+    @Bean
+    public Binding userUnblockedBinding() {
+        return BindingBuilder.bind(userUnblockedQueue())
+                .to(userExchange())
+                .with(USER_ROUTING_KEY_UNBLOCKED);
+    }
 
     @Bean
     public Queue userPackageStatusQueue() {
