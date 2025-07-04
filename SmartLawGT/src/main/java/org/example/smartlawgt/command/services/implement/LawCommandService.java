@@ -2,13 +2,13 @@ package org.example.smartlawgt.command.services.implement;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.smartlawgt.command.services.NotificationService;
+//import org.example.smartlawgt.command.services.NotificationService;
 import org.example.smartlawgt.command.dtos.Law.CreateLawCommand;
 import org.example.smartlawgt.command.dtos.Law.UpdateLawCommand;
 import org.example.smartlawgt.command.entities.LawEntity;
 import org.example.smartlawgt.command.entities.LawStatus;
 import org.example.smartlawgt.command.entities.LawTypeEntity;
-import org.example.smartlawgt.command.entities.notification.NotificationType;
+//import org.example.smartlawgt.command.entities.notification.NotificationType;
 import org.example.smartlawgt.command.repositories.LawRepository;
 import org.example.smartlawgt.command.repositories.LawTypeRepository;
 import org.example.smartlawgt.command.services.define.ILawCommandService;
@@ -30,7 +30,7 @@ public class LawCommandService implements ILawCommandService {
     private final LawRepository lawRepository;
     private final LawTypeRepository lawTypeRepository;
     private final RabbitTemplate rabbitTemplate;
-    private final NotificationService notificationService;
+   // private final NotificationService notificationService;
 
     @Override
     public UUID createLaw(CreateLawCommand command){
@@ -234,7 +234,7 @@ public class LawCommandService implements ILawCommandService {
         );
 
         // send broadcast notification
-        notificationService.sendBroadcastNotification(
+     /*   notificationService.sendBroadcastNotification(
                 title,
                 content,
                 NotificationType.LAW_UPDATE
@@ -242,6 +242,9 @@ public class LawCommandService implements ILawCommandService {
 
         log.info("Broadcast notification sent for law {}", law.getLawNumber());
     }
+    */
+    }
+
 }
 
 
