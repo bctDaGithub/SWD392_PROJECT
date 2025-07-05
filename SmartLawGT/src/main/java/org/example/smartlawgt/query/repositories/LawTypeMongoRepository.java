@@ -6,9 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 @Repository
-public interface ILawTypeDocumentRepo extends MongoRepository<LawTypeDocument, String> {
+public interface LawTypeMongoRepository extends MongoRepository<LawTypeDocument, String> {
 
     Optional<LawTypeDocument> findByLawTypeId(String lawTypeId);
 

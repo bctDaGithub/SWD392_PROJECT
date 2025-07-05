@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ILawDocumentRepo extends MongoRepository<LawDocument, String> {
+public interface LawMongoRepository extends MongoRepository<LawDocument, String> {
     Optional<LawDocument> findByLawNumber(String lawNumber);
 
     List<LawDocument> findByStatus(String status);

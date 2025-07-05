@@ -5,7 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.smartlawgt.query.documents.LawDocument;
 import org.example.smartlawgt.query.dtos.LawDTO;
 import org.example.smartlawgt.query.dtos.LawSearchCriteria;
-import org.example.smartlawgt.query.repositories.ILawDocumentRepo;
+import org.example.smartlawgt.query.repositories.LawMongoRepository;
 import org.example.smartlawgt.query.services.define.ILawQueryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
@@ -25,7 +25,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class LawQueryService implements ILawQueryService {
-    private final ILawDocumentRepo lawDocumentRepository;
+    private final LawMongoRepository lawDocumentRepository;
     private final MongoTemplate mongoTemplate;
     private final ModelMapper modelMapper;
 
