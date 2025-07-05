@@ -8,7 +8,7 @@ import org.example.smartlawgt.events.Law.LawCreatedEvent;
 import org.example.smartlawgt.events.Law.LawDeletedEvent;
 import org.example.smartlawgt.events.Law.LawUpdatedEvent;
 import org.example.smartlawgt.query.documents.LawDocument;
-import org.example.smartlawgt.query.repositories.ILawDocumentRepo;
+import org.example.smartlawgt.query.repositories.LawMongoRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Slf4j
 public class LawEventListener {
-    private final ILawDocumentRepo lawDocumentRepository;
+    private final LawMongoRepository lawDocumentRepository;
     private final UserRepository userRepository;
     @RabbitListener(queues = RabbitMQConfig.LAW_CREATED_QUEUE)
     public void handleLawCreatedEvent(LawCreatedEvent event) {

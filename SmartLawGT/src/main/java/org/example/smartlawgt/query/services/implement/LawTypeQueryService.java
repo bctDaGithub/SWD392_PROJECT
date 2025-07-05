@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.smartlawgt.query.documents.LawTypeDocument;
 import org.example.smartlawgt.query.dtos.LawTypeQueryDTO;
-import org.example.smartlawgt.query.repositories.ILawTypeDocumentRepo;
+import org.example.smartlawgt.query.repositories.LawTypeMongoRepository;
 import org.example.smartlawgt.query.services.define.ILawTypeQueryService;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Slf4j
 public class LawTypeQueryService implements ILawTypeQueryService {
-    private final ILawTypeDocumentRepo lawTypeDocumentRepository;
+    private final LawTypeMongoRepository lawTypeDocumentRepository;
     @Override
     public LawTypeQueryDTO getLawTypeById(UUID lawTypeId) {
         LawTypeDocument document = lawTypeDocumentRepository.findByLawTypeId(String.valueOf(lawTypeId))

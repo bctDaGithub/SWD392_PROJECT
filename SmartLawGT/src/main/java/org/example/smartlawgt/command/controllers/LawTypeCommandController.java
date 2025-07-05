@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.example.smartlawgt.command.dtos.Law.ApiResponse;
 import org.example.smartlawgt.command.dtos.Law.CreateLawTypeCommand;
-import org.example.smartlawgt.command.dtos.Law.LawTypeDTO;
 import org.example.smartlawgt.command.dtos.Law.UpdateLawTypeCommand;
 import org.example.smartlawgt.command.services.define.ILawTypeService;
 import org.example.smartlawgt.integration.jwt.JwtUtil;
@@ -13,13 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/command/lawtype")
 @RequiredArgsConstructor
-public class LawTypeController {
+public class LawTypeCommandController {
     private final ILawTypeService lawTypeService;
     private final JwtUtil jwt;
     @PostMapping

@@ -7,10 +7,9 @@ import org.example.smartlawgt.events.LawType.LawTypeCreatedEvent;
 import org.example.smartlawgt.events.LawType.LawTypeDeletedEvent;
 import org.example.smartlawgt.events.LawType.LawTypeUpdatedEvent;
 import org.example.smartlawgt.query.documents.LawTypeDocument;
-import org.example.smartlawgt.query.repositories.ILawDocumentRepo;
-import org.example.smartlawgt.query.repositories.ILawTypeDocumentRepo;
+import org.example.smartlawgt.query.repositories.LawMongoRepository;
+import org.example.smartlawgt.query.repositories.LawTypeMongoRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -19,8 +18,8 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 @Slf4j
 public class LawTypeEventListener {
-    private final ILawDocumentRepo lawDocumentRepo;
-    private final ILawTypeDocumentRepo lawTypeDocumentRepo;
+    private final LawMongoRepository lawMongoRepository;
+    private final LawTypeMongoRepository lawTypeMongoRepository;
     @RabbitListener(queues = RabbitMQConfig.LAW_TYPE_CREATED_QUEUE)
     public void handleLawTypeCreatedEvent(LawTypeCreatedEvent event) {
         log.info("Received LawTypeCreatedEvent for lawType: {}", event.getLawTypeId());
@@ -34,7 +33,7 @@ public class LawTypeEventListener {
                     .updatedDate(event.getCreatedDate())
                     .build();
 
-            lawTypeDocumentRepo.save(lawTypeDocument);
+            lawTypeMongoRepository.save(lawTypeDocument);
 
             log.info("LawType document created in MongoDB successfully");
 
@@ -49,11 +48,11 @@ public class LawTypeEventListener {
         log.info("Received LawTypeUpdatedEvent for lawType: {}", event.getLawTypeId());
 
         try {
-            lawTypeDocumentRepo.findByLawTypeId(String.valueOf(event.getLawTypeId())).ifPresentOrElse(
+            lawTypeMongoRepository.findByLawTypeId(String.valueOf(event.getLawTypeId())).ifPresentOrElse(
                     lawTypeDocument -> {
                         lawTypeDocument.setLawTypename(event.getLawTypename());
                         lawTypeDocument.setUpdatedDate(event.getUpdatedDate());
-                        lawTypeDocumentRepo.save(lawTypeDocument);
+                        lawTypeMongoRepository.save(lawTypeDocument);
                         log.info("LawType document updated in MongoDB");
                     },
                     () -> {
@@ -73,16 +72,16 @@ public class LawTypeEventListener {
         try {
             if (Boolean.TRUE.equals(event.getIsHardDelete())) {
                 // Hard delete - remove document
-                lawTypeDocumentRepo.deleteByLawTypeId(event.getLawTypeId().toString());
+                lawTypeMongoRepository.deleteByLawTypeId(event.getLawTypeId().toString());
                 log.info("LawType document deleted from MongoDB");
             } else {
                 // Soft delete - mark as deleted
-                lawTypeDocumentRepo.findByLawTypeId(String.valueOf(event.getLawTypeId())).ifPresentOrElse(
+                lawTypeMongoRepository.findByLawTypeId(String.valueOf(event.getLawTypeId())).ifPresentOrElse(
                         lawTypeDocument -> {
                             lawTypeDocument.setIsDeleted(true);
                             lawTypeDocument.setUpdatedDate(LocalDateTime.now());
 
-                            lawTypeDocumentRepo.save(lawTypeDocument);
+                            lawTypeMongoRepository.save(lawTypeDocument);
                             log.info("LawType document soft deleted in MongoDB");
                         },
                         () -> {
