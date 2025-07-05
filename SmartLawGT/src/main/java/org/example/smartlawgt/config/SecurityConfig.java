@@ -32,7 +32,7 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "api/v1/command/user/**",
+                                "/api/v1/command/user/**",
                                 "/api/v1/query/auth/**",    // login, refresh token
                                 "/swagger-ui/**",     // nếu có Swagger
                                 "/v3/api-docs/**"

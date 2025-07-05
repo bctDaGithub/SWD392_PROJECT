@@ -26,6 +26,13 @@ public class UserCommandService implements IUserCommandService {
 
     @Override
     public UserEntity createUser(UserEntity user) {
+        if (userRepository.existsByEmail(user.getEmail())) {
+            throw new IllegalStateException("Email already exists");
+        }
+        if (userRepository.existsByUserName(user.getUserName())) {
+            throw new IllegalStateException("Username already exists");
+        }
+
         user.setRole("USER");
         user.setUserId(UUID.randomUUID());
 
@@ -53,6 +60,21 @@ public class UserCommandService implements IUserCommandService {
     public UserEntity updateUser(UUID userId, UserEntity updatedUser) {
         UserEntity existing = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (updatedUser.getEmail() != null && !updatedUser.getEmail().equals(existing.getEmail())) {
+            if (userRepository.existsByEmail(updatedUser.getEmail())) {
+                throw new IllegalStateException("Email already exists");
+            }
+            existing.setEmail(updatedUser.getEmail());
+        }
+
+        // Check username uniqueness if it's being updated
+        if (updatedUser.getUserName() != null && !updatedUser.getUserName().equals(existing.getUserName())) {
+            if (userRepository.existsByUserName(updatedUser.getUserName())) {
+                throw new IllegalStateException("Username already exists");
+            }
+            existing.setUserName(updatedUser.getUserName());
+        }
 
         if (updatedUser.getUserName() != null) {
             existing.setUserName(updatedUser.getUserName());
