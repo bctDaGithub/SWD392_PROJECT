@@ -9,4 +9,5 @@ public interface IUserCommandService {
     UserEntity updateUser(UUID userId, UserEntity user);
     void blockUser(UUID userId);
     void unblockUser(UUID userId);
+    UserEntity changePassword(UUID userId, String oldPassword, String newPassword);
 }

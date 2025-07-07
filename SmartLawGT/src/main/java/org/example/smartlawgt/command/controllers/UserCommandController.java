@@ -41,4 +41,13 @@ public class UserCommandController {
         userService.unblockUser(userId);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{userId}/change-password")
+    public ResponseEntity<UserResponseDTO> changePassword(
+            @PathVariable UUID userId,
+            @RequestParam String oldPassword,
+            @RequestParam String newPassword) {
+        UserEntity updated = userService.changePassword(userId, oldPassword, newPassword);
+        return ResponseEntity.ok(UserMapper.toResponseDTO(updated));
+    }
 }

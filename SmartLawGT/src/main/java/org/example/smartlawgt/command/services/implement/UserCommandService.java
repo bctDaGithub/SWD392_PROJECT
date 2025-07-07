@@ -143,4 +143,20 @@ public class UserCommandService implements IUserCommandService {
 
         rabbitTemplate.convertAndSend("userUnblockedQueue", event);
     }
+
+    @Override
+    public UserEntity changePassword(UUID userId, String oldPassword, String newPassword) {
+        UserEntity user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        if (!passwordEncoder.matches(oldPassword, user.getPassword())) {
+            throw new IllegalArgumentException("Old password is incorrect");
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setUpdateDate(LocalDateTime.now());
+        UserEntity updatedUser = userRepository.save(user);
+
+        return updatedUser;
+    }
 }
