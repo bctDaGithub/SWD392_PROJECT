@@ -43,10 +43,12 @@ public class LawEntity {
     @Column(name = "status")
 
     private LawStatus status;
-    @Column(name= "createdBy")
-    private UUID createdByUserId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", referencedColumnName = "user_id")
+    private UserEntity createdBy;
+
     @Column(name = "updated_by")
-    private UUID updatedByUserId;
+    private UUID updatedBy;
 
     @Column(name = "issuing_body", length = 60)
     private String issuingBody;

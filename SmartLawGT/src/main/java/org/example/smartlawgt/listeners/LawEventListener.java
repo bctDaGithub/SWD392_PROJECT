@@ -7,6 +7,7 @@ import org.example.smartlawgt.config.RabbitMQConfig;
 import org.example.smartlawgt.events.Law.LawCreatedEvent;
 import org.example.smartlawgt.events.Law.LawDeletedEvent;
 import org.example.smartlawgt.events.Law.LawUpdatedEvent;
+import org.example.smartlawgt.integration.export.service.LawExportService;
 import org.example.smartlawgt.query.documents.LawDocument;
 import org.example.smartlawgt.query.repositories.LawMongoRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 public class LawEventListener {
     private final LawMongoRepository lawDocumentRepository;
     private final UserRepository userRepository;
+    private final LawExportService lawExportService;
     @RabbitListener(queues = RabbitMQConfig.LAW_CREATED_QUEUE)
     public void handleLawCreatedEvent(LawCreatedEvent event) {
         log.info("Received LawCreatedEvent for law: {}", event.getLawId());
@@ -42,7 +44,7 @@ public class LawEventListener {
 
             lawDocumentRepository.save(lawDocument);
             log.info("Law document created in MongoDB successfully");
-
+            lawExportService.appendSingleLaw(lawDocument.getLawId());
         } catch (Exception e) {
             log.error("Error processing LawCreatedEvent", e);
             // Could implement retry logic or send to DLQ
@@ -75,6 +77,8 @@ public class LawEventListener {
                         log.warn("Law document not found in MongoDB: {}", event.getLawId());
                     }
             );
+            lawExportService.clearDataFile();
+            lawExportService.appendAllLaws();
         } catch (Exception e) {
             log.error("Error processing LawUpdatedEvent", e);
             throw e;
@@ -88,6 +92,8 @@ public class LawEventListener {
         try {
             lawDocumentRepository.deleteById(event.getLawId().toString());
             log.info("Law document deleted from MongoDB");
+            lawExportService.clearDataFile();
+            lawExportService.appendAllLaws();
         } catch (Exception e) {
             log.error("Error processing LawDeletedEvent", e);
             throw e;

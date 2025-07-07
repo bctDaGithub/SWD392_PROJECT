@@ -9,17 +9,21 @@ import org.example.smartlawgt.command.entities.LawEntity;
 import org.example.smartlawgt.command.entities.LawStatus;
 import org.example.smartlawgt.command.entities.LawTypeEntity;
 //import org.example.smartlawgt.command.entities.notification.NotificationType;
+import org.example.smartlawgt.command.entities.UserEntity;
 import org.example.smartlawgt.command.repositories.LawRepository;
 import org.example.smartlawgt.command.repositories.LawTypeRepository;
+import org.example.smartlawgt.command.repositories.UserRepository;
 import org.example.smartlawgt.command.services.define.ILawCommandService;
 import org.example.smartlawgt.config.RabbitMQConfig;
 import org.example.smartlawgt.events.Law.LawCreatedEvent;
 import org.example.smartlawgt.events.Law.LawDeletedEvent;
 import org.example.smartlawgt.events.Law.LawUpdatedEvent;
+import org.example.smartlawgt.integration.export.service.LawExportService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -30,6 +34,8 @@ public class LawCommandService implements ILawCommandService {
     private final LawRepository lawRepository;
     private final LawTypeRepository lawTypeRepository;
     private final RabbitTemplate rabbitTemplate;
+    private final LawExportService lawExportService;
+    private final UserRepository userRepository;
    // private final NotificationService notificationService;
 
     @Override
@@ -38,7 +44,7 @@ public class LawCommandService implements ILawCommandService {
         if (lawRepository.existsByLawNumber(command.getLawNumber())){
             throw new IllegalArgumentException("Law number already exists: " + command.getLawNumber());
         }
-
+        Optional<UserEntity> userCreated = userRepository.findById(command.getCreatedByUserId());
         // Get related entities
         LawTypeEntity lawType = lawTypeRepository.findById(command.getLawTypeId())
 
@@ -56,12 +62,13 @@ public class LawCommandService implements ILawCommandService {
                 .issuingBody(command.getIssuingBody())
                 .contentUrl(command.getContentUrl())
                 .description(command.getDescription())
-                .createdByUserId(command.getCreatedByUserId())
+                .createdBy(userCreated.get())
                 .build();
 
         law = lawRepository.save(law);
         // Publish event to RabbitMQ
         publishLawCreatedEvent(law);
+
         //send notification
         sendBroadcastNotification(law, "created");
 
@@ -73,6 +80,7 @@ public class LawCommandService implements ILawCommandService {
     public void updateLaw(UUID lawId, UpdateLawCommand command) {
         log.info("Updating law: {}", lawId);
 
+      //  Optional<UserEntity> userUpdated = userRepository.findById(UUID.fromString(command.getUpdateByUserId()));
         LawEntity law = lawRepository.findById(lawId.toString())
                 .orElseThrow(() -> new IllegalArgumentException("Law not found: " + lawId));
 
@@ -117,11 +125,17 @@ public class LawCommandService implements ILawCommandService {
         if (command.getDescription() != null) {
             law.setDescription(command.getDescription());
         }
-        law.setUpdatedByUserId(UUID.fromString(command.getUpdateByUserId()));
+       law.setUpdatedBy(UUID.fromString(command.getUpdateByUserId()));
+      //  law.setUpdatedBy(userUpdated.get());
         law = lawRepository.save(law);
 
         // Publish event to RabbitMQ
         publishLawUpdatedEvent(law);
+    //hmmmmmm
+        lawExportService.clearDataFile();
+        lawExportService.appendAllLaws();
+
+
         //send notification
         sendBroadcastNotification(law, "updated");
 
@@ -141,19 +155,22 @@ public class LawCommandService implements ILawCommandService {
 
         // Publish event to RabbitMQ
         publishLawDeletedEvent(lawId, lawNumber);
-
+        lawExportService.clearDataFile();
+        lawExportService.appendAllLaws();
         log.info("Law deleted successfully");
     }
 
     @Override
     public void changeLawStatus(UUID lawId, LawStatus status, String userId) {
         log.info("Changing law status: {} to {}", lawId, status);
+        Optional<UserEntity> userUpdated = userRepository.findById(UUID.fromString(userId));
 
         LawEntity law = lawRepository.findById(String.valueOf(lawId))
                 .orElseThrow(() -> new IllegalArgumentException("Law not found: " + lawId));
 
         law.setStatus(status);
-        law.setUpdatedByUserId(UUID.fromString(userId));
+       law.setUpdatedBy(UUID.fromString(userId));
+      //  law.setUpdatedBy(userUpdated.get());
         law = lawRepository.save(law);
 
         // Publish event to RabbitMQ
@@ -175,7 +192,8 @@ public class LawCommandService implements ILawCommandService {
                 .effectiveDate(law.getEffectiveDate())
                 .expiryDate(law.getExpiryDate())
                 .description(law.getDescription())
-                .CreatedByUserId(String.valueOf(law.getCreatedByUserId()))
+                .contentUrl(law.getContentUrl())
+                .CreatedByUserId(String.valueOf(law.getCreatedBy().getUserId()))
                 .build();
 
         rabbitTemplate.convertAndSend(
@@ -198,7 +216,7 @@ public class LawCommandService implements ILawCommandService {
                 .issuingBody(law.getIssuingBody())
                 .contentUrl(law.getContentUrl())
                 .description(law.getDescription())
-                .UpdatedByUserId(String.valueOf(law.getUpdatedByUserId()))
+                .UpdatedByUserId(String.valueOf(law.getUpdatedBy()))
                 .build();
 
 
