@@ -162,4 +162,15 @@ public class UserCommandService implements IUserCommandService {
     public UserEntity findByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    @Override
+    public UserEntity resetPassword(String email, String newPassword) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setUpdateDate(LocalDateTime.now());
+        return userRepository.save(user);
+    }
 }

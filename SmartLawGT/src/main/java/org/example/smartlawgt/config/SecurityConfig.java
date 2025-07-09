@@ -48,7 +48,8 @@ public class SecurityConfig {
                                 "/momo/**",
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
-                                "/login/oauth2/code/**"
+                                "/login/oauth2/code/**",
+                                "/api/v1/otp/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
