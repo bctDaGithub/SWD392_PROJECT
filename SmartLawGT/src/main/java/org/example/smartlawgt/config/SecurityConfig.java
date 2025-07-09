@@ -43,7 +43,7 @@ public class SecurityConfig {
                                 "/api/v1/command/user/**",
                                 "/api/v1/query/auth/**",
                                 "/api/v1/auth/**",
-                                "/api/payment/**",
+                                "/api/v1/payment/**",
                                 "/vnpay/**",
                                 "/momo/**",
                                 "/swagger-ui/**",

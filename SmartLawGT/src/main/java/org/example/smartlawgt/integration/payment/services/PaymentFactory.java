@@ -10,10 +10,17 @@ public class PaymentFactory {
     @Autowired
     private VNPayService vnPayService;
 
+    @Autowired
+    private MoMoService moMoService;
+
     public PaymentService getPaymentService(TransactionMethod paymentMethod) {
-        if (paymentMethod == TransactionMethod.VNPAY) {
-            return vnPayService;
+        switch (paymentMethod) {
+            case VNPAY:
+                return vnPayService;
+            case MOMO:
+                return moMoService;
+            default:
+                throw new IllegalArgumentException("Unsupported payment method: " + paymentMethod);
         }
-        throw new IllegalArgumentException("Unsupported payment method: " + paymentMethod);
     }
 }
