@@ -50,4 +50,12 @@ public class UserCommandController {
         UserEntity updated = userService.changePassword(userId, oldPassword, newPassword);
         return ResponseEntity.ok(UserMapper.toResponseDTO(updated));
     }
+
+    @PutMapping("/reset-password")
+    public ResponseEntity<UserResponseDTO> resetPassword(
+            @RequestParam String email,
+            @RequestParam String newPassword) {
+        UserEntity updated = userService.resetPassword(email, newPassword);
+        return ResponseEntity.ok(UserMapper.toResponseDTO(updated));
+    }
 }

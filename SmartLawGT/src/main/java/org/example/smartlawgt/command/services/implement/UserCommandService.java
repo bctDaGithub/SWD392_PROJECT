@@ -29,12 +29,17 @@ public class UserCommandService implements IUserCommandService {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new IllegalStateException("Email already exists");
         }
-        if (userRepository.existsByUserName(user.getUserName())) {
+        if (user.getUserName() != null && userRepository.existsByUserName(user.getUserName())) {
             throw new IllegalStateException("Username already exists");
         }
 
+        if (user.getUserName() == null) {
+            user.setUserName(user.getEmail().split("@")[0]);
+        }
         user.setRole("USER");
         user.setUserId(UUID.randomUUID());
+        user.setIsActive(true);
+        user.setCreatedDate(LocalDateTime.now());
 
         if (user.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -68,7 +73,6 @@ public class UserCommandService implements IUserCommandService {
             existing.setEmail(updatedUser.getEmail());
         }
 
-        // Check username uniqueness if it's being updated
         if (updatedUser.getUserName() != null && !updatedUser.getUserName().equals(existing.getUserName())) {
             if (userRepository.existsByUserName(updatedUser.getUserName())) {
                 throw new IllegalStateException("Username already exists");
@@ -76,23 +80,17 @@ public class UserCommandService implements IUserCommandService {
             existing.setUserName(updatedUser.getUserName());
         }
 
-        if (updatedUser.getUserName() != null) {
-            existing.setUserName(updatedUser.getUserName());
+        if (updatedUser.getName() != null) {
+            existing.setName(updatedUser.getName());
         }
         if (updatedUser.getPassword() != null) {
             existing.setPassword(passwordEncoder.encode(updatedUser.getPassword()));
-        }
-        if (updatedUser.getName() != null) {
-            existing.setName(updatedUser.getName());
         }
         if (updatedUser.getAvatarUrlText() != null) {
             existing.setAvatarUrlText(updatedUser.getAvatarUrlText());
         }
         if (updatedUser.getBirthday() != null) {
             existing.setBirthday(updatedUser.getBirthday());
-        }
-        if (updatedUser.getEmail() != null) {
-            existing.setEmail(updatedUser.getEmail());
         }
         existing.setUpdateDate(LocalDateTime.now());
         UserEntity savedUser = userRepository.save(existing);
@@ -158,5 +156,21 @@ public class UserCommandService implements IUserCommandService {
         UserEntity updatedUser = userRepository.save(user);
 
         return updatedUser;
+    }
+
+    @Override
+    public UserEntity findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
+    public UserEntity resetPassword(String email, String newPassword) {
+        UserEntity user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new IllegalArgumentException("User not found");
+        }
+        user.setPassword(passwordEncoder.encode(newPassword));
+        user.setUpdateDate(LocalDateTime.now());
+        return userRepository.save(user);
     }
 }
