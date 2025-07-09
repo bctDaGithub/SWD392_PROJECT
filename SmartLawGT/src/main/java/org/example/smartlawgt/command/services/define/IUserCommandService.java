@@ -10,4 +10,5 @@ public interface IUserCommandService {
     void blockUser(UUID userId);
     void unblockUser(UUID userId);
     UserEntity changePassword(UUID userId, String oldPassword, String newPassword);
+    UserEntity findByEmail(String email);
 }
