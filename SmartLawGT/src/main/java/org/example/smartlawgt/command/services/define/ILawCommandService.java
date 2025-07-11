@@ -1,7 +1,7 @@
 package org.example.smartlawgt.command.services.define;
 
-import org.example.smartlawgt.command.dtos.Law.CreateLawCommand;
-import org.example.smartlawgt.command.dtos.Law.UpdateLawCommand;
+import org.example.smartlawgt.command.dtos.CreateLawCommand;
+import org.example.smartlawgt.command.dtos.UpdateLawCommand;
 import org.example.smartlawgt.command.entities.LawStatus;
 
 import java.util.UUID;

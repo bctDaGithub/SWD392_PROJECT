@@ -1,4 +1,4 @@
-package org.example.smartlawgt.events.LawType;
+package org.example.smartlawgt.events.law_type;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,8 +12,9 @@ import java.util.UUID;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LawTypeCreatedEvent {
+
+public class LawTypeUpdatedEvent {
     private UUID lawTypeId;
-    private String name;
-    private LocalDateTime createdDate;
+    private String LawTypename;
+    private LocalDateTime updatedDate;
 }

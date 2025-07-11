@@ -3,7 +3,7 @@ package org.example.smartlawgt.query.controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.smartlawgt.command.entities.UserEntity;
 import org.example.smartlawgt.command.repositories.UserRepository;
-import org.example.smartlawgt.command.services.define.IAuthService;
+import org.example.smartlawgt.query.services.define.IAuthService;
 import org.example.smartlawgt.integration.jwt.JwtUtil;
 import org.example.smartlawgt.query.dtos.LoginRequest;
 import org.example.smartlawgt.query.dtos.LoginResponse;

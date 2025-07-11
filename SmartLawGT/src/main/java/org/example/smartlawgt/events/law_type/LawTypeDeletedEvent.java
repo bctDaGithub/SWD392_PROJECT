@@ -1,4 +1,4 @@
-package org.example.smartlawgt.events.LawType;
+package org.example.smartlawgt.events.law_type;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

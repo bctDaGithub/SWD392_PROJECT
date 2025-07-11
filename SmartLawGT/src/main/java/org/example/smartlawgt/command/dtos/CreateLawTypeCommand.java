@@ -1,5 +1,6 @@
-package org.example.smartlawgt.command.dtos.Law;
+package org.example.smartlawgt.command.dtos;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class UpdateLawTypeCommand {
+public class CreateLawTypeCommand {
+    @NotBlank(message = "Law type name is required")
     private String name;
 }

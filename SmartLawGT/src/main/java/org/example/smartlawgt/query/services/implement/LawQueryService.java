@@ -34,7 +34,7 @@ public class LawQueryService implements ILawQueryService {
         log.debug("Getting law by ID: {}", lawId);
 
         LawDocument lawDocument = lawDocumentRepository.findById(String.valueOf(lawId))
-                .orElseThrow(() -> new IllegalArgumentException("Law not found: " + lawId));
+                    .orElseThrow(() -> new IllegalArgumentException("Law not found: " + lawId));
 
         return mapToDTO(lawDocument);
     }

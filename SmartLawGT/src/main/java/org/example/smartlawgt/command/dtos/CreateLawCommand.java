@@ -1,4 +1,4 @@
-package org.example.smartlawgt.command.dtos.Law;
+package org.example.smartlawgt.command.dtos;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

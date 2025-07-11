@@ -3,8 +3,8 @@ package org.example.smartlawgt.command.services.implement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 //import org.example.smartlawgt.command.services.NotificationService;
-import org.example.smartlawgt.command.dtos.Law.CreateLawCommand;
-import org.example.smartlawgt.command.dtos.Law.UpdateLawCommand;
+import org.example.smartlawgt.command.dtos.CreateLawCommand;
+import org.example.smartlawgt.command.dtos.UpdateLawCommand;
 import org.example.smartlawgt.command.entities.LawEntity;
 import org.example.smartlawgt.command.entities.LawStatus;
 import org.example.smartlawgt.command.entities.LawTypeEntity;
@@ -13,9 +13,16 @@ import org.example.smartlawgt.command.repositories.LawRepository;
 import org.example.smartlawgt.command.repositories.LawTypeRepository;
 import org.example.smartlawgt.command.services.define.ILawCommandService;
 import org.example.smartlawgt.config.RabbitMQConfig;
+<<<<<<< Updated upstream
 import org.example.smartlawgt.events.Law.LawCreatedEvent;
 import org.example.smartlawgt.events.Law.LawDeletedEvent;
 import org.example.smartlawgt.events.Law.LawUpdatedEvent;
+=======
+import org.example.smartlawgt.events.law.LawCreatedEvent;
+import org.example.smartlawgt.events.law.LawDeletedEvent;
+import org.example.smartlawgt.events.law.LawUpdatedEvent;
+import org.example.smartlawgt.integration.export.service.LawExportService;
+>>>>>>> Stashed changes
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
