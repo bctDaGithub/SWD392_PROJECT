@@ -2,9 +2,9 @@ package org.example.smartlawgt.command.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.smartlawgt.command.dtos.Law.ApiResponse;
-import org.example.smartlawgt.command.dtos.Law.CreateLawTypeCommand;
-import org.example.smartlawgt.command.dtos.Law.UpdateLawTypeCommand;
+import org.example.smartlawgt.command.dtos.ApiResponse;
+import org.example.smartlawgt.command.dtos.CreateLawTypeCommand;
+import org.example.smartlawgt.command.dtos.UpdateLawTypeCommand;
 import org.example.smartlawgt.command.services.define.ILawTypeService;
 import org.example.smartlawgt.integration.jwt.JwtUtil;
 import org.springframework.http.HttpStatus;

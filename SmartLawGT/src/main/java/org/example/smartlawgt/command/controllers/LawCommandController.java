@@ -2,8 +2,8 @@ package org.example.smartlawgt.command.controllers;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.smartlawgt.command.dtos.Law.CreateLawCommand;
-import org.example.smartlawgt.command.dtos.Law.UpdateLawCommand;
+import org.example.smartlawgt.command.dtos.CreateLawCommand;
+import org.example.smartlawgt.command.dtos.UpdateLawCommand;
 import org.example.smartlawgt.command.entities.LawStatus;
 import org.example.smartlawgt.command.services.define.ILawCommandService;
 import org.example.smartlawgt.integration.jwt.JwtUtil;
@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.example.smartlawgt.command.dtos.Law.ApiResponse;
+import org.example.smartlawgt.command.dtos.ApiResponse;
 import java.util.UUID;
 @RestController
 @RequestMapping("/api/v1/command/law")

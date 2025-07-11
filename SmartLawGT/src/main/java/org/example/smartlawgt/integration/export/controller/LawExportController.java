@@ -1,7 +1,6 @@
 package org.example.smartlawgt.integration.export.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.example.smartlawgt.command.dtos.Law.ApiResponse;
 import org.example.smartlawgt.integration.export.service.LawExportService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

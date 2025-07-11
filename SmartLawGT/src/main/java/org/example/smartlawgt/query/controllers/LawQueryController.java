@@ -1,7 +1,7 @@
 package org.example.smartlawgt.query.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.smartlawgt.command.dtos.Law.ApiResponse;
+import org.example.smartlawgt.command.dtos.ApiResponse;
 import org.example.smartlawgt.query.dtos.LawDTO;
 import org.example.smartlawgt.query.dtos.LawSearchCriteria;
 import org.example.smartlawgt.query.services.define.ILawQueryService;

@@ -1,4 +1,4 @@
-package org.example.smartlawgt.command.dtos.Law;
+package org.example.smartlawgt.command.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

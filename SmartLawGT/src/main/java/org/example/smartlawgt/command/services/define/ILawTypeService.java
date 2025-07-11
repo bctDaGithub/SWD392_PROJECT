@@ -1,10 +1,8 @@
 package org.example.smartlawgt.command.services.define;
 
-import org.example.smartlawgt.command.dtos.Law.CreateLawTypeCommand;
-import org.example.smartlawgt.command.dtos.Law.LawTypeDTO;
-import org.example.smartlawgt.command.dtos.Law.UpdateLawTypeCommand;
+import org.example.smartlawgt.command.dtos.CreateLawTypeCommand;
+import org.example.smartlawgt.command.dtos.UpdateLawTypeCommand;
 
-import java.util.List;
 import java.util.UUID;
 
 public interface ILawTypeService {

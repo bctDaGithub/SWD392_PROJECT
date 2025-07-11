@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -31,14 +32,12 @@ public class GeminiApiService {
     private final OkHttpClient client = new OkHttpClient();
 
     public String getGeminiResponse(String prompt, UUID userId) throws IOException {
-        // 1. Lấy gói còn hiệu lực
         List<UserPackageDocument> activePackages = userPackageMongoRepository.findActiveSubscriptions(userId, LocalDateTime.now());
 
         if (activePackages.isEmpty()) {
             return "Bạn không có gói sử dụng hợp lệ để sử dụng AI.";
         }
 
-        // 2. Ưu tiên gói có dailyLimit cao nhất
         UserPackageDocument activePackage = activePackages.stream()
                 .max(Comparator.comparingInt(UserPackageDocument::getDailyLimit))
                 .orElse(null);
@@ -53,11 +52,24 @@ public class GeminiApiService {
             return "Bạn đã sử dụng hết số lượt hỏi hôm nay. Vui lòng quay lại vào ngày mai.";
         }
 
-        // 4. Gửi prompt cho Gemini
+        Optional<ChatHistoryDocument> lastChat = chatHistoryRepository.findTop1ByUserIdOrderByTimestampDesc(userId);
+
+        String context = "";
+        if (lastChat.isPresent()) {
+            context = "Câu hỏi trước: " + lastChat.get().getQuestion() + "\n" +
+                    "Trả lời trước: " + lastChat.get().getAnswer() + "\n";
+        }
+
         String customData = customDataService.loadCustomData();
-        String fullPrompt = "Dựa trên thông tin sau:\n" + customData +
-                "\nNếu câu hỏi không liên quan đến thông tin trên, hãy trả lời là không có thông tin nào liên quan." +
-                "\nTrả lời câu hỏi bằng tiếng Việt: " + prompt;
+        String fullPrompt =
+                "Bạn là trợ lý pháp lý. Dưới đây là thông tin nền tảng:\n" +
+                        customData + "\n\n" +
+                        (context.isEmpty() ? "" : "Ngữ cảnh trước đó:\n" + context + "\n") +
+                        "Câu hỏi mới:\n" + prompt + "\n\n" +
+                        "Yêu cầu:\n" +
+                        "- Nếu câu hỏi không liên quan đến dữ liệu trên, hãy trả lời: \"Không có thông tin nào liên quan, nếu có thắc mắc hãy liên hệ 1900 1234.\"\n" +
+                        "- Trả lời bằng tiếng Việt.";
+
 
         MediaType JSON = MediaType.get("application/json; charset=utf-8");
         String requestBody = String.format(
@@ -68,7 +80,7 @@ public class GeminiApiService {
         Request request = new Request.Builder()
                 .url("https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + apiKey)
                 .addHeader("Content-Type", "application/json")
-                .post(RequestBody.create(requestBody, JSON))
+                .post(RequestBody.create(JSON, requestBody))
                 .build();
 
         try (Response response = client.newCall(request).execute()) {
