@@ -60,7 +60,7 @@ public class GoogleAuthService implements IGoogleAuthService {
                                 .userName(email.split("@")[0])
                                 .name(name)
                                 .avatarUrlText(avatar)
-                                .password(randomPassword) // ✅ Add this line
+                                .password(randomPassword)
                                 .isActive(true)
                                 .role("USER")
                                 .createdDate(LocalDateTime.now())
