@@ -62,12 +62,14 @@ public class GeminiApiService {
 
         String customData = customDataService.loadCustomData();
         String fullPrompt =
-                "Bạn là trợ lý pháp lý. Dưới đây là thông tin nền tảng:\n" +
+                "Bạn là trợ lý pháp lý chuyên về lĩnh vực giao thông cho hệ thống SmartLaw GT. Hãy ưu tiên sử dụng thông tin dưới đây để trả lời:\n" +
                         customData + "\n\n" +
                         (context.isEmpty() ? "" : "Ngữ cảnh trước đó:\n" + context + "\n") +
                         "Câu hỏi mới:\n" + prompt + "\n\n" +
                         "Yêu cầu:\n" +
-                        "- Nếu câu hỏi không liên quan đến dữ liệu trên, hãy trả lời: \"Không có thông tin nào liên quan, nếu có thắc mắc hãy liên hệ 1900 1234.\"\n" +
+                        "- Chỉ trả lời các câu hỏi liên quan đến giao thông hoặc luật giao thông.\n" +
+                        "- Ưu tiên sử dụng dữ liệu được cung cấp ở trên. Nếu không đủ thông tin, bạn có thể bổ sung kiến thức từ nguồn đáng tin cậy, nhưng phải liên quan đến giao thông.\n" +
+                        "- Nếu không có thông tin nào phù hợp, hãy trả lời: \"Không có thông tin nào liên quan, nếu có thắc mắc hãy liên hệ 1900 1234.\"\n" +
                         "- Trả lời bằng tiếng Việt.";
 
 
