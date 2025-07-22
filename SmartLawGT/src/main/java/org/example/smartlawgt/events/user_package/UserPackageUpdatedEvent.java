@@ -11,6 +11,7 @@ import java.util.UUID;
 public class UserPackageUpdatedEvent {
     private Long id;
     private UUID userId;
+    private String userName;  // Add userName field
     private UUID usagePackageId;
     private String packageName;
     private Float packagePrice;
