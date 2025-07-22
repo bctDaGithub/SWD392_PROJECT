@@ -37,9 +37,8 @@ public class LawCommandService implements ILawCommandService {
     private final LawRepository lawRepository;
     private final LawTypeRepository lawTypeRepository;
     private final RabbitTemplate rabbitTemplate;
-    private final LawExportService lawExportService;
     private final UserRepository userRepository;
-   // private final NotificationService notificationService;
+    private final NotificationCommandService notificationCommandService;
 
     @Override
     public UUID createLaw(CreateLawCommand command){
@@ -71,7 +70,9 @@ public class LawCommandService implements ILawCommandService {
         law = lawRepository.save(law);
         // Publish event to RabbitMQ
         publishLawCreatedEvent(law);
-
+        if(law.getStatus().equals(LawStatus.VALID)) {
+            notificationCommandService.notifyLawCreated(law.getLawNumber());
+        }
         //send notification
         sendBroadcastNotification(law, "created");
 
@@ -135,10 +136,9 @@ public class LawCommandService implements ILawCommandService {
         // Publish event to RabbitMQ
         publishLawUpdatedEvent(law);
     //hmmmmmm
-        lawExportService.clearDataFile();
-        lawExportService.appendAllLaws();
-
-
+if(law.getStatus().equals(LawStatus.VALID)) {
+    notificationCommandService.notifyLawUpdated(law.getLawNumber());
+}
         //send notification
         sendBroadcastNotification(law, "updated");
 
@@ -158,8 +158,7 @@ public class LawCommandService implements ILawCommandService {
 
         // Publish event to RabbitMQ
         publishLawDeletedEvent(lawId, lawNumber);
-        lawExportService.clearDataFile();
-        lawExportService.appendAllLaws();
+
         log.info("Law deleted successfully");
     }
 
@@ -178,6 +177,9 @@ public class LawCommandService implements ILawCommandService {
 
         // Publish event to RabbitMQ
         publishLawUpdatedEvent(law);
+if (law.getStatus().equals(LawStatus.VALID)) {
+    notificationCommandService.notifyLawUpdated(law.getLawNumber());
+}
 
         log.info("Law status changed successfully");
     }
