@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface NotificationMongoRepository extends MongoRepository<NotificationDocument, String> {
@@ -14,4 +15,7 @@ public interface NotificationMongoRepository extends MongoRepository<Notificatio
     List<NotificationDocument> findByUserIdAndRead(String userId, boolean isRead);
     Page<NotificationDocument> findByUserId(String userId, Pageable pageable);
     long countByUserIdAndRead(String userId, boolean isRead);
+
+
+    Optional<NotificationDocument> findNotificationByNotificationId(String notificationId);
 }

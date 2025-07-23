@@ -3,6 +3,7 @@ package org.example.smartlawgt.listeners;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.smartlawgt.events.notificaiton.NotificationCreatedEvent;
+import org.example.smartlawgt.events.notificaiton.NotificationDeletedEvent;
 import org.example.smartlawgt.events.notificaiton.NotificationReadEvent;
 import org.example.smartlawgt.events.notificaiton.NotificationToggledEvent;
 import org.example.smartlawgt.query.documents.NotificationDocument;
@@ -49,7 +50,7 @@ public class NotificationEventListener {
         log.info("Received notification read event: {}", event.getNotificationId());
 
         // Update in MongoDB
-        notificationMongoRepository.findById(event.getNotificationId()).ifPresent(doc -> {
+        notificationMongoRepository.findNotificationByNotificationId(event.getNotificationId()).ifPresent(doc -> {
             doc.setRead(true);
             notificationMongoRepository.save(doc);
 
@@ -70,6 +71,22 @@ public class NotificationEventListener {
         notificationMongoRepository.findById(event.getNotificationId()).ifPresent(doc -> {
             doc.setEnable(event.isEnable());
             notificationMongoRepository.save(doc);
+        });
+    }
+
+    @RabbitListener(queues = "notification.deleted.queue")
+    public void handleNotificationDeleted(NotificationDeletedEvent event) {
+        log.info("Received notification deleted event: {}", event.getNotificationId());
+
+        // Delete from MongoDB
+        notificationMongoRepository.findNotificationByNotificationId(event.getNotificationId()).ifPresent(doc -> {
+            notificationMongoRepository.delete(doc);
+            log.info("Deleted notification from MongoDB: {}", event.getNotificationId());
+            messagingTemplate.convertAndSendToUser(
+                    event.getUserId(),
+                    "/queue/notifications/deleted",
+                    event.getNotificationId()
+            );
         });
     }
 }
