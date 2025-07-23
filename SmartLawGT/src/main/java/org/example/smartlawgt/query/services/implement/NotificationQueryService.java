@@ -40,12 +40,12 @@ public class NotificationQueryService implements INotificationQueryService {
 
     @Override
     public long getUnreadCount(UUID userId) {
-        return notificationMongoRepository.countByUserIdAndIsRead(userId.toString(), false);
+        return notificationMongoRepository.countByUserIdAndRead(userId.toString(), false);
     }
 
     @Override
     public List<NotificationDTO> getUnreadNotifications(UUID userId) {
-        return notificationMongoRepository.findByUserIdAndIsRead(userId.toString(), false)
+        return notificationMongoRepository.findByUserIdAndRead(userId.toString(), false)
                 .stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
@@ -54,8 +54,8 @@ public class NotificationQueryService implements INotificationQueryService {
 
     private NotificationDTO mapToDTO(NotificationDocument document) {
         return NotificationDTO.builder()
-                .notificationId(UUID.fromString(document.getNotificationId()))
-                .userId(UUID.fromString(document.getUserId()))
+                .notificationId(document.getNotificationId())
+                .userId(document.getUserId())
                 .title(document.getTitle())
                 .content(document.getContent())
                 .created(document.getCreated())
