@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.smartlawgt.command.repositories.UserRepository;
 import org.example.smartlawgt.config.RabbitMQConfig;
 
+import org.example.smartlawgt.events.Law.LawCreatedEvent;
+import org.example.smartlawgt.events.Law.LawDeletedEvent;
 import org.example.smartlawgt.integration.export.service.LawExportService;
-import org.example.smartlawgt.events.law.LawCreatedEvent;
-import org.example.smartlawgt.events.law.LawDeletedEvent;
-import org.example.smartlawgt.events.law.LawUpdatedEvent;
+import org.example.smartlawgt.events.Law.LawUpdatedEvent;
 import org.example.smartlawgt.integration.export.service.LawExportService;
 
 import org.example.smartlawgt.query.documents.LawDocument;

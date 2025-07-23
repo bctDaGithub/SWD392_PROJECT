@@ -1,4 +1,4 @@
-package org.example.smartlawgt.events.law;
+package org.example.smartlawgt.events.Law;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

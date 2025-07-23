@@ -18,4 +18,5 @@ public class LawTypeDTO {
     private Boolean isDeleted;
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
+    private long lawCount;
 }

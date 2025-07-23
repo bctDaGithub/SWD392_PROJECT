@@ -14,7 +14,7 @@ import java.util.UUID;
 @Builder
 public class LawSearchCriteria {
     private String lawNumber;
-    private UUID lawTypeId;
+    private String lawTypeName;
     private String status;
     private String issuingBody;
     private LocalDateTime effectiveDateFrom;

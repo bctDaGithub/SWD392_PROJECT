@@ -47,6 +47,7 @@ public class UserPackageCommandService implements IUserPackageCommandService {
         UserPackageCreatedEvent event = new UserPackageCreatedEvent();
         event.setId(savedEntity.getId());
         event.setUserId(savedEntity.getUser().getUserId());
+        event.setUserName(savedEntity.getUser().getUserName());  // Add userName from UserEntity
         event.setUsagePackageId(savedEntity.getUsagePackage().getUsagePackageId());
         event.setPackageName(usagePackage.getName());
         event.setPackagePrice(usagePackage.getPrice());
@@ -77,6 +78,7 @@ public class UserPackageCommandService implements IUserPackageCommandService {
                     UserPackageUpdatedEvent event = new UserPackageUpdatedEvent();
                     event.setId(savedEntity.getId());
                     event.setUserId(savedEntity.getUser().getUserId());
+                    event.setUserName(savedEntity.getUser().getUserName());  // Add userName from UserEntity
                     event.setUsagePackageId(savedEntity.getUsagePackage().getUsagePackageId());
                     event.setPackageName(savedEntity.getUsagePackage().getName());
                     event.setTransactionDate(savedEntity.getTransactionDate());

@@ -1,4 +1,4 @@
-package org.example.smartlawgt.command.config;
+package org.example.smartlawgt.config;
 
 import lombok.RequiredArgsConstructor;
 import org.example.smartlawgt.command.entities.UserEntity;

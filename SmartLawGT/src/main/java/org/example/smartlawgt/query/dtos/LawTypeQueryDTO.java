@@ -19,5 +19,4 @@ public class LawTypeQueryDTO {
     private LocalDateTime createdDate;
     private LocalDateTime updatedDate;
     private Long lawCount;
-    private LocalDateTime lastUsedDate;
 }

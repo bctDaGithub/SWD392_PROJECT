@@ -47,6 +47,8 @@ public class LawExportService {
                     .with(Sort.by(Sort.Direction.ASC, "lawNumber"));
             List<LawDocument> laws = mongoTemplate.find(query, LawDocument.class);
 
+            // Append to file
+
             appendToFile(laws);
 
             // Notify cache about data append
@@ -94,7 +96,7 @@ public class LawExportService {
             Query query = Query.query(Criteria.where("lawId").is(lawId));
             LawDocument law = mongoTemplate.findOne(query, LawDocument.class);
 
-            if (law != null) {
+            if (law != null && law.getStatus().equals("VALID")) {
                 appendSingleLawToFile(law);
 
                 // Notify cache about data append
@@ -228,38 +230,64 @@ public class LawExportService {
         }
     }
 
+//    private String formatLawToText(LawDocument law) {
+//        StringBuilder sb = new StringBuilder();
+//
+//        sb.append("=== BẮT ĐẦU LUẬT ===\n");
+//        sb.append("Số hiệu: ").append(law.getLawNumber()).append("\n");
+//        sb.append("Tên luật: ").append(law.getDescription() != null ? law.getDescription() : "N/A").append("\n");
+//        sb.append("Loại: ").append(law.getLawTypeName()).append("\n");
+//
+//        if (law.getIssueDate() != null) {
+//            sb.append("Ngày ban hành: ").append(law.getIssueDate().format(DATE_FORMATTER)).append("\n");
+//        }
+//
+//        sb.append("Ngày hiệu lực: ").append(law.getEffectiveDate().format(DATE_FORMATTER)).append("\n");
+//
+//        if (law.getExpiryDate() != null) {
+//            sb.append("Ngày hết hiệu lực: ").append(law.getExpiryDate().format(DATE_FORMATTER)).append("\n");
+//        }
+//
+//        sb.append("Cơ quan ban hành: ").append(law.getIssuingBody()).append("\n");
+//        sb.append("\nNội dung chính:\n");
+//
+//        if (law.getDescription() != null && !law.getDescription().isEmpty()) {
+//            sb.append(law.getDescription()).append("\n");
+//        }
+//
+//        if (law.getContentUrl() != null && !law.getContentUrl().isEmpty()) {
+//            sb.append("Link tài liệu: ").append(law.getContentUrl()).append("\n");
+//        }
+//
+//        sb.append("=== KẾT THÚC LUẬT ===");
+//
+//        return sb.toString();
+//    }
+
     private String formatLawToText(LawDocument law) {
         StringBuilder sb = new StringBuilder();
 
-        sb.append("=== BẮT ĐẦU LUẬT ===\n");
-        sb.append("Số hiệu: ").append(law.getLawNumber()).append("\n");
-        sb.append("Tên luật: ").append(law.getDescription() != null ? law.getDescription() : "N/A").append("\n");
-        sb.append("Loại: ").append(law.getLawTypeName()).append("\n");
-
-        if (law.getIssueDate() != null) {
-            sb.append("Ngày ban hành: ").append(law.getIssueDate().format(DATE_FORMATTER)).append("\n");
-        }
-
-        sb.append("Ngày hiệu lực: ").append(law.getEffectiveDate().format(DATE_FORMATTER)).append("\n");
-
-        if (law.getExpiryDate() != null) {
-            sb.append("Ngày hết hiệu lực: ").append(law.getExpiryDate().format(DATE_FORMATTER)).append("\n");
-        }
-
-        sb.append("Cơ quan ban hành: ").append(law.getIssuingBody()).append("\n");
-        sb.append("\nNội dung chính:\n");
-
-        if (law.getDescription() != null && !law.getDescription().isEmpty()) {
-            sb.append(law.getDescription()).append("\n");
-        }
-
-        if (law.getContentUrl() != null && !law.getContentUrl().isEmpty()) {
-            sb.append("Link tài liệu: ").append(law.getContentUrl()).append("\n");
-        }
-
-        sb.append("=== KẾT THÚC LUẬT ===");
+        sb.append("LAW\n");
+        sb.append("number: ").append(law.getLawNumber()).append("\n");
+        sb.append("title: ").append(nonNullOrNA(law.getDescription())).append("\n");
+        sb.append("type: ").append(law.getLawTypeName()).append("\n");
+        sb.append("issued: ").append(formatDate(law.getIssueDate())).append("\n");
+        sb.append("effective: ").append(formatDate(law.getEffectiveDate())).append("\n");
+        sb.append("expired: ").append(formatDate(law.getExpiryDate())).append("\n");
+        sb.append("agency: ").append(nonNullOrNA(law.getIssuingBody())).append("\n");
+        sb.append("content: ").append(nonNullOrNA(law.getDescription())).append("\n");
+        sb.append("url: ").append(nonNullOrNA(law.getContentUrl())).append("\n");
+        sb.append("END\n");
 
         return sb.toString();
+    }
+
+    private String formatDate(LocalDateTime dateTime) {
+        return (dateTime != null) ? dateTime.format(DATETIME_FORMATTER) : "N/A";
+    }
+
+    private String nonNullOrNA(String s) {
+        return (s != null && !s.trim().isEmpty()) ? s.trim() : "N/A";
     }
 
     // Inner class for file info

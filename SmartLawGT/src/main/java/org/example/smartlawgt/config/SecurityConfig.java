@@ -49,7 +49,13 @@ public class SecurityConfig {
                                 "/swagger-ui/**",
                                 "/v3/api-docs/**",
                                 "/login/oauth2/code/**",
-                                "/api/v1/otp/**"
+                                "/api/v1/otp/**",
+                                "/api/v1/query/law/{lawId}",
+                                "/api/v1/query/law/valid",
+                                "/api/v1/query/law/search",
+                                "/api/v1/query/package/active",
+                                "/api/v1/query/package/{packageId}"
+
                         ).permitAll()
                         .anyRequest().authenticated()
                 )

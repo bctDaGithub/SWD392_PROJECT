@@ -13,6 +13,7 @@ import org.example.smartlawgt.command.services.define.ILawTypeService;
 import org.example.smartlawgt.config.RabbitMQConfig;
 import org.example.smartlawgt.events.law_type.LawTypeCreatedEvent;
 import org.example.smartlawgt.events.law_type.LawTypeDeletedEvent;
+import org.example.smartlawgt.events.law_type.LawTypeUpdatedCountEvent;
 import org.example.smartlawgt.events.law_type.LawTypeUpdatedEvent;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -58,6 +60,7 @@ public class LawTypeCommandService implements ILawTypeService {
         return lawType.getLawTypeId();
     }
 
+
     @Override
     public void updateLawType(UUID lawTypeId, UpdateLawTypeCommand command, UUID userId) {
         log.info("Updating law type: {}", lawTypeId);
@@ -71,6 +74,7 @@ public class LawTypeCommandService implements ILawTypeService {
             }
             lawType.setName(command.getName());
         }
+
         List<LawEntity> laws = lawRepository.findByLawType_LawTypeId(lawTypeId);
         for (LawEntity law : laws) {
             UpdateLawCommand updateLawCommand = new UpdateLawCommand();
@@ -84,6 +88,8 @@ public class LawTypeCommandService implements ILawTypeService {
 
         log.info("Law type updated successfully");
     }
+
+
 
     @Override
     public void deleteLawType(UUID lawTypeId) {
@@ -141,9 +147,9 @@ public class LawTypeCommandService implements ILawTypeService {
                 event
         );
 
+
         log.debug("Published LawTypeUpdatedEvent for lawType: {}", lawType.getLawTypeId());
     }
-
     private void publishLawTypeDeletedEvent(LawTypeEntity lawType, boolean isHardDelete) {
         LawTypeDeletedEvent event = LawTypeDeletedEvent.builder()
                 .lawTypeId(lawType.getLawTypeId())

@@ -23,10 +23,10 @@ public class NotificationEntity {
     @JoinColumn(name = "user_id")
     private UserEntity user;
 
-    @Column(name = "title", length = 60)
+    @Column(name = "title", columnDefinition = "nvarchar(max)")
     private String title;
 
-    @Column(name = "content", columnDefinition = "text")
+    @Column(name = "content", columnDefinition = "nvarchar(max)")
     private String content;
 
     @Column(name = "timestamp")
