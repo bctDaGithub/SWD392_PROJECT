@@ -27,11 +27,11 @@ public class LawQueryController {
         return ResponseEntity.ok(ApiResponse.success(law));
     }
 
-    @GetMapping("/number/{lawNumber}")
-    public ResponseEntity<ApiResponse<LawDTO>> getLawByNumber(@PathVariable String lawNumber) {
-        LawDTO law = lawQueryService.getLawByNumber(lawNumber);
-        return ResponseEntity.ok(ApiResponse.success(law));
-    }
+//    @GetMapping("/number/{lawNumber}")
+//    public ResponseEntity<ApiResponse<LawDTO>> getLawByNumber(@PathVariable String lawNumber) {
+//        LawDTO law = lawQueryService.getLawByNumber(lawNumber);
+//        return ResponseEntity.ok(ApiResponse.success(law));
+//    }
 
     @GetMapping
     public ResponseEntity<ApiResponse<Page<LawDTO>>> getAllLaws(
@@ -42,7 +42,8 @@ public class LawQueryController {
 
         Sort.Direction direction = sortDirection.equalsIgnoreCase("ASC")
                 ? Sort.Direction.ASC : Sort.Direction.DESC;
-        Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+      //  Pageable pageable = PageRequest.of(page, size, Sort.by(direction, sortBy));
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdDate"));
 
         Page<LawDTO> laws = lawQueryService.getAllLaws(pageable);
         return ResponseEntity.ok(ApiResponse.success(laws));
@@ -70,15 +71,15 @@ public class LawQueryController {
         return ResponseEntity.ok(ApiResponse.success(laws));
     }
 
-    @GetMapping("/type/{lawTypeName}")
-    public ResponseEntity<ApiResponse<List<LawDTO>>> getLawsByType(@PathVariable String lawTypeName) {
-        List<LawDTO> laws = lawQueryService.getLawsByTypeName(lawTypeName);
-        return ResponseEntity.ok(ApiResponse.success(laws));
-    }
+//    @GetMapping("/type/{lawTypeName}")
+//    public ResponseEntity<ApiResponse<List<LawDTO>>> getLawsByType(@PathVariable String lawTypeName) {
+//        List<LawDTO> laws = lawQueryService.getLawsByTypeName(lawTypeName);
+//        return ResponseEntity.ok(ApiResponse.success(laws));
+//    }
 
-    @GetMapping("/issuing-body/{issuingBody}")
-    public ResponseEntity<ApiResponse<List<LawDTO>>> getLawsByIssuingBody(@PathVariable String issuingBody) {
-        List<LawDTO> laws = lawQueryService.getLawsByIssuingBody(issuingBody);
-        return ResponseEntity.ok(ApiResponse.success(laws));
-    }
+//    @GetMapping("/issuing-body/{issuingBody}")
+//    public ResponseEntity<ApiResponse<List<LawDTO>>> getLawsByIssuingBody(@PathVariable String issuingBody) {
+//        List<LawDTO> laws = lawQueryService.getLawsByIssuingBody(issuingBody);
+//        return ResponseEntity.ok(ApiResponse.success(laws));
+//    }
 }

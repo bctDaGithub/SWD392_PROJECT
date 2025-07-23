@@ -231,7 +231,8 @@ public class RabbitMQConfig {
     @Bean
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         RabbitTemplate template = new RabbitTemplate(connectionFactory);
-        template.setMessageConverter(jackson2JsonMessageConverter());
+        template.setMessageConverter(messageConverter());
+        template.setEncoding("UTF-8");
         return template;
     }
     // Exchange
@@ -242,10 +243,13 @@ public class RabbitMQConfig {
     public static final String LAW_CREATED_QUEUE = "law.created.queue";
     public static final String LAW_UPDATED_QUEUE = "law.updated.queue";
     public static final String LAW_DELETED_QUEUE = "law.deleted.queue";
-
+    public static final String LAW_CREATED_COUNT_QUEUE = "law.created.count.queue";
+    public static final String LAW_UPDATED_COUNT_QUEUE = "law.updated.count.queue";
+    public static final String LAW_DELETED_COUNT_QUEUE = "law.deleted.count.queue";
     public static final String LAW_TYPE_CREATED_QUEUE = "lawtype.created.queue";
     public static final String LAW_TYPE_UPDATED_QUEUE = "lawtype.updated.queue";
     public static final String LAW_TYPE_DELETED_QUEUE = "lawtype.deleted.queue";
+
 
     // Routing Keys
     public static final String LAW_CREATED_KEY = "law.created";
@@ -275,7 +279,41 @@ public class RabbitMQConfig {
     public Queue lawDeletedQueue() {
         return QueueBuilder.durable(LAW_DELETED_QUEUE).build();
     }
+    @Bean
+    public Queue lawCreatedCountQueue() {return QueueBuilder.durable(LAW_CREATED_COUNT_QUEUE).build();
+    }
 
+    @Bean
+    public Queue lawUpdatedCountQueue() {return QueueBuilder.durable(LAW_UPDATED_COUNT_QUEUE).build();
+    }
+
+    @Bean
+    public Queue lawDeletedCountQueue() {return QueueBuilder.durable(LAW_DELETED_COUNT_QUEUE).build();
+    }
+
+    @Bean
+    public Binding lawCreatedCountBinding() {
+        return BindingBuilder
+                .bind(lawCreatedCountQueue())
+                .to(lawExchange())
+                .with(LAW_CREATED_KEY);
+    }
+
+    @Bean
+    public Binding lawUpdatedCountBinding() {
+        return BindingBuilder
+                .bind(lawUpdatedCountQueue())
+                .to(lawExchange())
+                .with(LAW_UPDATED_KEY);
+    }
+
+    @Bean
+    public Binding lawDeletedCountBinding() {
+        return BindingBuilder
+                .bind(lawDeletedCountQueue())
+                .to(lawExchange())
+                .with(LAW_DELETED_KEY);
+    }
 
     @Bean
     public Binding lawCreatedBinding() {
@@ -292,6 +330,8 @@ public class RabbitMQConfig {
                 .to(lawExchange())
                 .with(LAW_UPDATED_KEY);
     }
+    
+
 
     @Bean
     public Binding lawDeletedBinding() {
@@ -350,7 +390,9 @@ public class RabbitMQConfig {
     public MessageConverter messageConverter() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.registerModule(new JavaTimeModule());
-        return new Jackson2JsonMessageConverter(objectMapper);
+        Jackson2JsonMessageConverter converter = new Jackson2JsonMessageConverter(objectMapper);
+        converter.setDefaultCharset("UTF-8");
+        return converter;
     }
     @Bean
     public TopicExchange notificationExchange() {

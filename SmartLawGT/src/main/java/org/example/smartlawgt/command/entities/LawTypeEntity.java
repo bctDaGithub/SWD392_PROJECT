@@ -20,7 +20,7 @@ public class LawTypeEntity {
     @Column(name = "law_type_id")
     private UUID lawTypeId;
 
-    @Column(name = "name", length = 60)
+    @Column(name = "name", columnDefinition = "nvarchar(max)")
     private String name;
 
     @Column(name = "is_deleted")

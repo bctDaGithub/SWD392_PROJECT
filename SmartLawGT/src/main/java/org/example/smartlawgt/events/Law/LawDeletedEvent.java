@@ -1,4 +1,4 @@
-package org.example.smartlawgt.events.law;
+package org.example.smartlawgt.events.Law;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,6 +13,7 @@ import java.util.UUID;
 @Builder
 public class LawDeletedEvent {
     private UUID lawId;
+    private UUID lawTypeId;
     private String lawNumber;
 
 }

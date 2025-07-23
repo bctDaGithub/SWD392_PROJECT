@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.smartlawgt.query.documents.LawTypeDocument;
 import org.example.smartlawgt.query.dtos.LawTypeQueryDTO;
+import org.example.smartlawgt.query.repositories.LawMongoRepository;
 import org.example.smartlawgt.query.repositories.LawTypeMongoRepository;
 import org.example.smartlawgt.query.services.define.ILawTypeQueryService;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ public class LawTypeQueryService implements ILawTypeQueryService {
                 .isDeleted(document.getIsDeleted())
                 .createdDate(document.getCreatedDate())
                 .updatedDate(document.getUpdatedDate())
+                .lawCount(document.getLawCount())
                 .build();
     }
 }
