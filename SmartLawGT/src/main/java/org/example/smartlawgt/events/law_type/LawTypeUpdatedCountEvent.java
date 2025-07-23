@@ -1,4 +1,4 @@
-package org.example.smartlawgt.command.dtos;
+package org.example.smartlawgt.events.law_type;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,14 +9,11 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class LawTypeDTO {
+public class LawTypeUpdatedCountEvent {
     private UUID lawTypeId;
-    private String name;
-    private Boolean isDeleted;
-    private LocalDateTime createdDate;
-    private LocalDateTime updatedDate;
-    private long lawCount;
+    private String lawTypeName;
+    private Long lawCount;
 }

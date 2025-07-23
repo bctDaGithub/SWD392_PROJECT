@@ -52,6 +52,7 @@ public class LawExportService {
             List<LawDocument> laws = mongoTemplate.find(query, LawDocument.class);
 
             // Append to file
+
             appendToFile(laws);
 
             log.info("Successfully appended {} laws to {}", laws.size(), DATA_FILE_PATH);

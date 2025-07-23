@@ -9,5 +9,4 @@ public interface ILawTypeService {
     UUID createLawType(CreateLawTypeCommand command);
     void updateLawType(UUID lawTypeId, UpdateLawTypeCommand command, UUID userId);
     void deleteLawType(UUID lawTypeId);
-
 }

@@ -1,4 +1,4 @@
-package org.example.smartlawgt.events.Notificaiton;
+package org.example.smartlawgt.events.notificaiton;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

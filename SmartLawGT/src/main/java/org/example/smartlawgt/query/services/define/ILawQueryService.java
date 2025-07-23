@@ -11,16 +11,16 @@ import java.util.UUID;
 public interface ILawQueryService {
     LawDTO getLawById(UUID lawId);
 
-    LawDTO getLawByNumber(String lawNumber);
+  //  LawDTO getLawByNumber(String lawNumber);
 
     Page<LawDTO> getAllLaws(Pageable pageable);
 
     Page<LawDTO> searchLaws(LawSearchCriteria criteria, Pageable pageable);
 
     List<LawDTO> getActiveLaws();
-
-    List<LawDTO> getLawsByTypeName(String lawTypeName);
-
-    List<LawDTO> getLawsByIssuingBody(String issuingBody);
+//
+//    List<LawDTO> getLawsByTypeName(String lawTypeName);
+//
+//    List<LawDTO> getLawsByIssuingBody(String issuingBody);
 
 }

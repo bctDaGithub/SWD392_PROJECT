@@ -2,9 +2,9 @@ package org.example.smartlawgt.listeners;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.smartlawgt.events.Notificaiton.NotificationCreatedEvent;
-import org.example.smartlawgt.events.Notificaiton.NotificationReadEvent;
-import org.example.smartlawgt.events.Notificaiton.NotificationToggledEvent;
+import org.example.smartlawgt.events.notificaiton.NotificationCreatedEvent;
+import org.example.smartlawgt.events.notificaiton.NotificationReadEvent;
+import org.example.smartlawgt.events.notificaiton.NotificationToggledEvent;
 import org.example.smartlawgt.query.documents.NotificationDocument;
 import org.example.smartlawgt.query.repositories.NotificationMongoRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;

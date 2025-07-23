@@ -1,4 +1,4 @@
-package org.example.smartlawgt.command.dtos.Notification;
+package org.example.smartlawgt.command.dtos.notification;
 
 import lombok.Data;
 

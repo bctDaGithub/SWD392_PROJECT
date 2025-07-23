@@ -1,4 +1,4 @@
-package org.example.smartlawgt.events.law;
+package org.example.smartlawgt.events.Law;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +17,7 @@ public class LawUpdatedEvent {
     private UUID lawId;
     private String lawNumber;
     private String lawTypeId;
+    private String oldLawTypeId;
     private String lawTypeName;
     private LocalDateTime issueDate;
     private LocalDateTime effectiveDate;

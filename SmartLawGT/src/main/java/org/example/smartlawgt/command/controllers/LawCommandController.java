@@ -51,12 +51,9 @@ public class LawCommandController {
     @PreAuthorize("hasRole('ADMIN')")
 
     public ResponseEntity<ApiResponse<Void>> changeLawStatus(
-            @RequestHeader ("Authorization") String token,
             @PathVariable UUID lawId,
             @RequestBody LawStatus status) {
-        UUID userId = jwt.getUserIdFromToken(token.replace("Bearer ", ""));
-
-        lawCommandService.changeLawStatus(lawId, status, String.valueOf(userId));
+        lawCommandService.changeLawStatus(lawId, status);
         return ResponseEntity.ok(ApiResponse.success("Law status changed successfully"));
     }
 }

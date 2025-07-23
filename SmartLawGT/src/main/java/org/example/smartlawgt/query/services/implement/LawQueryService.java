@@ -10,6 +10,7 @@ import org.example.smartlawgt.query.services.define.ILawQueryService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -39,15 +40,15 @@ public class LawQueryService implements ILawQueryService {
         return mapToDTO(lawDocument);
     }
 
-    @Override
-    public LawDTO getLawByNumber(String lawNumber) {
-        log.debug("Getting law by number: {}", lawNumber);
-
-        LawDocument lawDocument = lawDocumentRepository.findByLawNumber(lawNumber)
-                .orElseThrow(() -> new IllegalArgumentException("Law not found with number: " + lawNumber));
-
-        return mapToDTO(lawDocument);
-    }
+//    @Override
+//    public LawDTO getLawByNumber(String lawNumber) {
+//        log.debug("Getting law by number: {}", lawNumber);
+//
+//        LawDocument lawDocument = lawDocumentRepository.findByLawNumber(lawNumber)
+//                .orElseThrow(() -> new IllegalArgumentException("Law not found with number: " + lawNumber));
+//
+//        return mapToDTO(lawDocument);
+//    }
 
     @Override
     public Page<LawDTO> getAllLaws(Pageable pageable) {
@@ -62,6 +63,7 @@ public class LawQueryService implements ILawQueryService {
         log.debug("Searching laws with criteria: {}", criteria);
 
         Query query = buildSearchQuery(criteria);
+        query.with(Sort.by(Sort.Direction.DESC, "createdDate"));
         query.with(pageable);
 
         List<LawDocument> lawDocuments = mongoTemplate.find(query, LawDocument.class);
@@ -78,31 +80,31 @@ public class LawQueryService implements ILawQueryService {
     public List<LawDTO> getActiveLaws() {
         log.debug("Getting active laws");
 
-        List<LawDocument> activeLaws = lawDocumentRepository.findByStatus("VALID");
+        List<LawDocument> activeLaws = lawDocumentRepository.findByStatusOrderByCreatedDateDesc("VALID");
         return activeLaws.stream()
                 .map(this::mapToDTO)
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public List<LawDTO> getLawsByTypeName(String lawTypeName) {
-        log.debug("Getting laws by type: {}", lawTypeName);
-
-        List<LawDocument> laws = lawDocumentRepository.findByLawTypeName(lawTypeName);
-        return laws.stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<LawDTO> getLawsByIssuingBody(String issuingBody) {
-        log.debug("Getting laws by issuing body: {}", issuingBody);
-
-        List<LawDocument> laws = lawDocumentRepository.findByIssuingBody(issuingBody);
-        return laws.stream()
-                .map(this::mapToDTO)
-                .collect(Collectors.toList());
-    }
+//    @Override
+//    public List<LawDTO> getLawsByTypeName(String lawTypeName) {
+//        log.debug("Getting laws by type: {}", lawTypeName);
+//
+//        List<LawDocument> laws = lawDocumentRepository.findByLawTypeName(lawTypeName);
+//        return laws.stream()
+//                .map(this::mapToDTO)
+//                .collect(Collectors.toList());
+//    }
+//
+//    @Override
+//    public List<LawDTO> getLawsByIssuingBody(String issuingBody) {
+//        log.debug("Getting laws by issuing body: {}", issuingBody);
+//
+//        List<LawDocument> laws = lawDocumentRepository.findByIssuingBody(issuingBody);
+//        return laws.stream()
+//                .map(this::mapToDTO)
+//                .collect(Collectors.toList());
+//    }
 
     private Query buildSearchQuery(LawSearchCriteria criteria) {
         Query query = new Query();
@@ -112,8 +114,8 @@ public class LawQueryService implements ILawQueryService {
             criteriaList.add(Criteria.where("lawNumber").regex(criteria.getLawNumber(), "i"));
         }
 
-        if (criteria.getLawTypeId() != null) {
-            criteriaList.add(Criteria.where("lawTypeId").is(criteria.getLawTypeId().toString()));
+        if (criteria.getLawTypeName() != null) {
+            criteriaList.add(Criteria.where("lawTypeName").is(criteria.getLawTypeName().toString()));
         }
 
         if (criteria.getStatus() != null && !criteria.getStatus().isEmpty()) {

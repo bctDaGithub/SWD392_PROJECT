@@ -27,7 +27,7 @@ public class LawEntity {
     @JoinColumn(name = "law_type_id", nullable = false)
     private LawTypeEntity lawType;
 
-    @Column(name = "law_number", nullable = false, length = 60)
+    @Column(name = "law_number", nullable = false, columnDefinition = "nvarchar(60)")
     private String lawNumber;
 
     @Column(name = "issue_date")
@@ -50,12 +50,12 @@ public class LawEntity {
     @Column(name = "updated_by")
     private UUID updatedBy;
 
-    @Column(name = "issuing_body", length = 60)
+    @Column(name = "issuing_body", columnDefinition = "nvarchar(max)")
     private String issuingBody;
 
-    @Column(name = "content_url", columnDefinition = "TEXT")
+    @Column(name = "content_url", columnDefinition = "nvarchar(max)")
     private String contentUrl;
 
-    @Column(name = "description", columnDefinition = "TEXT")
+    @Column(name = "description", columnDefinition = "nvarchar(max)")
     private String description;
 }

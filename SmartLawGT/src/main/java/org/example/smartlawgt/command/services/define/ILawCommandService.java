@@ -10,5 +10,5 @@ public interface ILawCommandService {
     UUID createLaw(CreateLawCommand command);
     void updateLaw(UUID lawId, UpdateLawCommand command);
     void deleteLaw(UUID lawId);
-    void changeLawStatus(UUID lawId, LawStatus status, String userId);
+    void changeLawStatus(UUID lawId, LawStatus status);
 }

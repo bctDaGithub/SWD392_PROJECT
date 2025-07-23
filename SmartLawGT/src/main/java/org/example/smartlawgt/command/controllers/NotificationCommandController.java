@@ -2,7 +2,7 @@ package org.example.smartlawgt.command.controllers;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.smartlawgt.command.dtos.Notification.CreateNotificationRequestDTO;
+import org.example.smartlawgt.command.dtos.notification.CreateNotificationRequestDTO;
 import org.example.smartlawgt.command.services.define.INotificationCommandService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

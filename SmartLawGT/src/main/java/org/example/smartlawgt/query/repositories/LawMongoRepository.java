@@ -12,7 +12,7 @@ public interface LawMongoRepository extends MongoRepository<LawDocument, String>
     Optional<LawDocument> findByLawNumber(String lawNumber);
 
     List<LawDocument> findByStatus(String status);
-
+    List<LawDocument> findByStatusOrderByCreatedDateDesc(String status);
 
     List<LawDocument> findByIssuingBody(String issuingBody);
 
