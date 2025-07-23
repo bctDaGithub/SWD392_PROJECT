@@ -60,6 +60,7 @@ public class RabbitMQConfig {
     public static final String NOTIFICATION_TOGGLED_QUEUE = "notification.toggled.queue";
     public static final String NOTIFICATION_TOGGLED_KEY = "notification.toggled";
 
+
     @Bean
     public TopicExchange userExchange() {
         return new TopicExchange(USER_EXCHANGE);
@@ -416,6 +417,22 @@ public class RabbitMQConfig {
     @Bean
     public Queue notificationPushQueue() {
         return QueueBuilder.durable("notification.push.queue").build();
+    }
+
+
+    public static final String NOTIFICATION_DELETED_QUEUE = "notification.deleted.queue";
+    public static final String NOTIFICATION_DELETED_KEY = "notification.deleted";
+
+    @Bean
+    public Queue notificationDeletedQueue() {
+        return QueueBuilder.durable(NOTIFICATION_DELETED_QUEUE).build();
+    }
+    @Bean
+    public Binding notificationDeletedBinding() {
+        return BindingBuilder
+                .bind(notificationDeletedQueue())
+                .to(notificationExchange())
+                .with(NOTIFICATION_DELETED_KEY);
     }
 
     // Bindings

@@ -23,7 +23,7 @@ public class NotificationQueryService implements INotificationQueryService {
 
     @Override
     public NotificationDTO getNotificationById(UUID notificationId) {
-        NotificationDocument document = notificationMongoRepository.findById(notificationId.toString())
+        NotificationDocument document = notificationMongoRepository.findNotificationByNotificationId(notificationId.toString())
                 .orElseThrow(() -> new IllegalArgumentException("Notification not found"));
         return mapToDTO(document);
     }

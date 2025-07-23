@@ -3,6 +3,8 @@ package org.example.smartlawgt.command.controllers;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.example.smartlawgt.command.dtos.notification.CreateNotificationRequestDTO;
+import org.example.smartlawgt.command.dtos.notification.UpdateNotificationRequestDTO;
+import org.example.smartlawgt.command.entities.notification.NotificationType;
 import org.example.smartlawgt.command.services.define.INotificationCommandService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +31,22 @@ private final INotificationCommandService notificationService;
             return ResponseEntity.status(HttpStatus.CREATED).body(notificationId);
         } catch (Exception ex) {
             log.error("Error creating notification", ex);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error: " + ex.getMessage());
+        }
+    }
+
+    @PostMapping("/send-all")
+    public ResponseEntity<String> SendNotificationToAll(@RequestBody CreateNotificationRequestDTO request) {
+        try{
+            notificationService.sendBroadcastNotification(
+                    request.getTitle(),
+                    request.getContent(),
+                    NotificationType.SYSTEM_ANNOUNCEMENT
+            );
+            return ResponseEntity.status(HttpStatus.CREATED).body("Notification has been sent");
+
+        }catch(Exception ex){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error: " + ex.getMessage());
         }
