@@ -28,8 +28,8 @@ public class NotificationEventListener {
                 .title(event.getTitle())
                 .content(event.getContent())
                 .created(event.getTimestamp())
-                .isRead(false)
-                .isEnable(true)
+                .read(false)
+                .enable(true)
                 .build();
 
         // Save to MongoDB for queries

@@ -13,8 +13,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NotificationDTO {
-    private UUID notificationId;
-    private UUID userId;
+    private String notificationId;
+    private String userId;
     private String title;
     private String content;
     private LocalDateTime created;

@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 public interface NotificationMongoRepository extends MongoRepository<NotificationDocument, String> {
     List<NotificationDocument> findByUserId(String userId);
-    List<NotificationDocument> findByUserIdAndIsRead(String userId, boolean isRead);
+    List<NotificationDocument> findByUserIdAndRead(String userId, boolean isRead);
     Page<NotificationDocument> findByUserId(String userId, Pageable pageable);
-    long countByUserIdAndIsRead(String userId, boolean isRead);
+    long countByUserIdAndRead(String userId, boolean isRead);
 }
