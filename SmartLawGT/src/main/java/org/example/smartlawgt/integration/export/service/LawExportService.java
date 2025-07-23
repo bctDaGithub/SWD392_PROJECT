@@ -2,13 +2,13 @@ package org.example.smartlawgt.integration.export.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.smartlawgt.integration.ai.services.CustomDataService;
 import org.example.smartlawgt.query.documents.LawDocument;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import java.io.BufferedWriter;
@@ -32,7 +32,8 @@ public class LawExportService {
     private final MongoTemplate mongoTemplate;
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy");
     private static final DateTimeFormatter DATETIME_FORMATTER = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-
+    @Autowired
+    private CustomDataService customDataService;
     // Fixed file path - always append to this file
     private static final String DATA_FILE_PATH = "src/main/resources/data.txt";
 
@@ -41,22 +42,18 @@ public class LawExportService {
      */
     public String appendAllLaws() {
         try {
-            // Ensure file exists
             ensureFileExists();
-
-            // Query for valid laws
-            Query query = Query.query(
-                    Criteria.where("status").is("VALID")
-            ).with(Sort.by(Sort.Direction.ASC, "lawNumber"));
-
+            Query query = Query.query(Criteria.where("status").is("VALID"))
+                    .with(Sort.by(Sort.Direction.ASC, "lawNumber"));
             List<LawDocument> laws = mongoTemplate.find(query, LawDocument.class);
 
-            // Append to file
             appendToFile(laws);
+
+            // Notify cache about data append
+            customDataService.onDataAppended();
 
             log.info("Successfully appended {} laws to {}", laws.size(), DATA_FILE_PATH);
             return DATA_FILE_PATH;
-
         } catch (Exception e) {
             log.error("Error appending laws", e);
             throw new RuntimeException("Failed to append laws: " + e.getMessage());
@@ -69,20 +66,19 @@ public class LawExportService {
     public String appendLawsByType(String lawTypeName) {
         try {
             ensureFileExists();
-
             Query query = Query.query(
                     Criteria.where("lawTypeName").is(lawTypeName)
                             .and("status").is("VALID")
             ).with(Sort.by(Sort.Direction.ASC, "effectiveDate"));
 
             List<LawDocument> laws = mongoTemplate.find(query, LawDocument.class);
-
-            // Append with type header
             appendToFileWithTypeHeader(laws, lawTypeName);
+
+            // Notify cache about data append
+            customDataService.onDataAppended();
 
             log.info("Successfully appended {} {} laws", laws.size(), lawTypeName);
             return DATA_FILE_PATH;
-
         } catch (Exception e) {
             log.error("Error appending laws by type", e);
             throw new RuntimeException("Failed to append laws: " + e.getMessage());
@@ -95,19 +91,18 @@ public class LawExportService {
     public String appendSingleLaw(String lawId) {
         try {
             ensureFileExists();
-
             Query query = Query.query(Criteria.where("lawId").is(lawId));
             LawDocument law = mongoTemplate.findOne(query, LawDocument.class);
 
             if (law != null) {
                 appendSingleLawToFile(law);
+
+                // Notify cache about data append
+                customDataService.onDataAppended();
+
                 log.info("Successfully appended law: {}", law.getLawNumber());
-            } else {
-                log.warn("Law not found with ID: {}", lawId);
             }
-
             return DATA_FILE_PATH;
-
         } catch (Exception e) {
             log.error("Error appending single law", e);
             throw new RuntimeException("Failed to append law: " + e.getMessage());
@@ -120,13 +115,16 @@ public class LawExportService {
     public void clearDataFile() {
         try {
             Files.write(Paths.get(DATA_FILE_PATH), "".getBytes(), StandardOpenOption.TRUNCATE_EXISTING);
-            log.info("Data file cleared");
+
+            // Notify cache about complete data rebuild
+            customDataService.onDataRebuilt();
+
+            log.info("Data file cleared and cache updated");
         } catch (IOException e) {
             log.error("Error clearing data file", e);
             throw new RuntimeException("Failed to clear file: " + e.getMessage());
         }
     }
-
     /**
      * Get current file size and line count
      */
