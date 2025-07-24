@@ -20,7 +20,7 @@ public class UsagePackageEntity {
     @Column(name = "usage_package_id")
     private UUID usagePackageId;
 
-    @Column(name = "name", length = 60)
+    @Column(name = "name", length = 60, columnDefinition = "nvarchar(max)")
     private String name;
 
     @Column(name = "description", columnDefinition = "text")

@@ -30,7 +30,7 @@ public class UserEntity {
     @Column(name = "password", nullable = false, length = 1024)
     private String password;
 
-    @Column(name = "name", length = 60)
+    @Column(name = "name", length = 60, columnDefinition = "nvarchar(60)")
     private String name;
 
     @Column(name = "avatar_url_text")

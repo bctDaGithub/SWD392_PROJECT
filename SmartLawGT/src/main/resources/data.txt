@@ -1,85 +1,98 @@
 
 ============================================================
-=== THÊM NGÀY: 24/07/2025 11:10:07 ===
+=== THÊM NGÀY: 24/07/2025 21:33:47 ===
 ============================================================
 
 LAW
-number: 01/2024/QH
-title: Phạt vượt đèn đỏ phạt 500 triệu kìa
-type: Lu?t m?i
-issued: 30/07/2025 17:00:00
-effective: 05/07/2025 17:00:00
-expired: 30/06/2025 17:00:00
-agency: Quốc Hội
-content: Phạt vượt đèn đỏ phạt 500 triệu kìa
-url: https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Luat-giao-thong-duong-bo-2008-23-2008-QH12-82203.aspx
+number:  36/2024/QH15
+title: Luật quy định đầy đủ về quy tắc tham gia giao thông đường bộ, cấp – thu hồi GPLX, và quản lý vi phạm hành chính. Lần đầu áp dụng hệ thống điểm cho giấy phép lái xe (12 điểm/năm, bị trừ khi vi phạm). Giao quyền lớn hơn cho lực lượng CSGT và thiết lập cơ sở dữ liệu giao thông đồng bộ toàn quốc.
+type: Luật
+issued: 25/06/2024 10:00:00
+effective: 31/12/2024 10:00:00
+expired: 29/07/2025 10:00:00
+agency: Quốc hội khóa XV
+content: Luật quy định đầy đủ về quy tắc tham gia giao thông đường bộ, cấp – thu hồi GPLX, và quản lý vi phạm hành chính. Lần đầu áp dụng hệ thống điểm cho giấy phép lái xe (12 điểm/năm, bị trừ khi vi phạm). Giao quyền lớn hơn cho lực lượng CSGT và thiết lập cơ sở dữ liệu giao thông đồng bộ toàn quốc.
+url: https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Luat-trat-tu-an-toan-giao-thong-duong-bo-2024-so-36-2024-QH15-444251.aspx?utm_source=chatgpt.com
 END
 
 
 LAW
-number: 01/2025/QH
-title: Đánh võng phạt 100000 nghìn thôi
-type: Lu?t m?i
-issued: 23/07/2025 04:52:51
-effective: 23/07/2025 04:52:51
-expired: 23/07/2025 04:52:51
-agency: Qu?c H?i
-content: Đánh võng phạt 100000 nghìn thôi
-url: string
+number: 151/2024/ND-CP
+title: Hướng dẫn thi hành Luật 36/2024/QH15 một số điều — đặc biệt là về cơ sở dữ liệu, xử phạt, phục hồi điểm và biện pháp cưỡng chế.
+type: Nghị định
+issued: 14/11/2024 10:00:00
+effective: 31/12/2024 10:00:00
+expired: 05/07/2025 10:00:00
+agency: Chính phủ
+content: Hướng dẫn thi hành Luật 36/2024/QH15 một số điều — đặc biệt là về cơ sở dữ liệu, xử phạt, phục hồi điểm và biện pháp cưỡng chế.
+url: https://luatvietnam.vn/giao-thong/luat-trat-tu-an-toan-giao-thong-duong-bo-cua-quoc-hoi-so-36-2024-qh15-360844-d1.html?utm_source=chatgpt.com
 END
 
 
 LAW
-number: 01/2025/QH/111
-title: ok
-type: Van b?n cu
-issued: 07/07/2025 17:00:00
-effective: 21/07/2025 17:00:00
-expired: 23/07/2025 17:00:00
-agency: Quốc Hội
-content: ok
-url: https://noidung.quochoi.vn/
+number: 165/2024/NDCP
+title: Hướng dẫn điều kiện kinh doanh dịch vụ thẩm tra an toàn giao thông đường bộ, phù hợp các điều khoản của Luật.
+type: Nghị định
+issued: 30/12/2024 17:00:00
+effective: 31/12/2024 17:00:00
+expired: N/A
+agency: Chính phủ
+content: Hướng dẫn điều kiện kinh doanh dịch vụ thẩm tra an toàn giao thông đường bộ, phù hợp các điều khoản của Luật.
+url: https://thuvienphapluat.vn/chu-de-van-ban/391/tong-hop-van-ban-huong-dan-luat-trat-tu-an-toan-giao-thong-duong-bo-2024?utm_source=chatgpt.com
 END
 
 
 LAW
-number: 02/2024/QH
-title: Tông xe sẽ bị phạt ngồi xổm
-type: Ngh? d?nh
-issued: 09/07/2025 17:00:00
-effective: 22/07/2025 17:00:00
-expired: 27/07/2025 17:00:00
-agency: Quốc Hội
-content: Tông xe sẽ bị phạt ngồi xổm
-url: http://localhost:5173/admin
+number: 168/2024/ND-CP
+title: Quy định chi tiết xử phạt hành chính vi phạm giao thông: mức phạt, tước GPLX, trừ điểm, phục hồi điểm.
+type: Nghị định
+issued: 25/12/2024 17:00:00
+effective: 31/12/2024 17:00:00
+expired: N/A
+agency: Chính phủ
+content: Quy định chi tiết xử phạt hành chính vi phạm giao thông: mức phạt, tước GPLX, trừ điểm, phục hồi điểm.
+url: https://chinhphu.vn/?classid=1&docid=211194&pageid=27160&typegroupid=3&utm_source=chatgpt.com
 END
 
 
 LAW
-number: 12345
-title: Đánh cảnh sát giao thông phạt ở tù
-type: Ngh? d?nh
-issued: 22/07/2025 22:07:03
-effective: 22/07/2025 22:07:03
-expired: 22/07/2025 22:07:03
-agency: Qu?c H?i
-content: Đánh cảnh sát giao thông phạt ở tù
-url: N/A
+number: 176/2024/NDCP
+title: Quy định về sử dụng kinh phí từ xử phạt và đấu giá biển số để tái đầu tư vào hệ thống giao thông.
+type: Nghị định
+issued: 29/12/2024 17:00:00
+effective: 31/12/2024 17:00:00
+expired: N/A
+agency: Chính phủ
+content: Quy định về sử dụng kinh phí từ xử phạt và đấu giá biển số để tái đầu tư vào hệ thống giao thông.
+url: https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Luat-trat-tu-an-toan-giao-thong-duong-bo-2024-so-36-2024-QH15-444251.aspx?utm_source=chatgpt.com
 END
 
 
---- Đã thêm 5 luật ---
-
---- Thêm lúc: 24/07/2025 20:41:51 ---
 LAW
-number: 01/2024/TT
-title: Ngồi ngoài đường bị phạt 200 nghìn
-type: Thông tu
-issued: 29/07/2025 17:00:00
-effective: 30/07/2025 17:00:00
-expired: 22/07/2026 17:00:00
-agency: Bộ giao thông
-content: Ngồi ngoài đường bị phạt 200 nghìn
-url: N/A
+number: 35/2018/QH14
+title: Điều chỉnh Luật Giao thông đường bộ và các luật khác liên quan đến quy hoạch mạng lưới đường bộ quốc gia, đô thị.
+type: Luật
+issued: 19/11/2018 17:00:00
+effective: 30/06/2025 17:00:00
+expired: N/A
+agency: Quốc hội khóa XIV
+content: Điều chỉnh Luật Giao thông đường bộ và các luật khác liên quan đến quy hoạch mạng lưới đường bộ quốc gia, đô thị.
+url: https://thuvienphapluat.vn/van-ban/Xay-dung-Do-thi/Luat-sua-doi-cac-Luat-co-lien-quan-den-quy-hoach-2018-390511.aspx?utm_source=chatgpt.com
+END
+
+
+--- Đã thêm 6 luật ---
+
+--- Thêm lúc: 24/07/2025 21:35:05 ---
+LAW
+number: 37/2024/QH15
+title: Luật tách riêng về quản lý kết cấu hạ tầng đường bộ, từ quy hoạch, xây dựng, bảo trì, đến quản lý trạm thu phí, biển báo, cầu đường. Đặt ra tiêu chuẩn kỹ thuật mới và cơ chế đầu tư hạ tầng theo hình thức đối tác công tư (PPP).
+type: Luật
+issued: 09/03/2023 17:00:00
+effective: 31/12/2024 17:00:00
+expired: N/A
+agency: Quốc hội
+content: Luật tách riêng về quản lý kết cấu hạ tầng đường bộ, từ quy hoạch, xây dựng, bảo trì, đến quản lý trạm thu phí, biển báo, cầu đường. Đặt ra tiêu chuẩn kỹ thuật mới và cơ chế đầu tư hạ tầng theo hình thức đối tác công tư (PPP).
+url: https://vi.wikisource.org/wiki/Lu%E1%BA%ADt_s%E1%BB%ADa_%C4%91%E1%BB%95i%2C_b%E1%BB%95_sung_m%E1%BB%99t_s%E1%BB%91_%C4%91i%E1%BB%81u_c%E1%BB%A7a_37_lu%E1%BA%ADt_c%C3%B3_li%C3%AAn_quan_%C4%91%E1%BA%BFn_quy_ho%E1%BA%A1ch?utm_source=chatgpt.com
 END
 
