@@ -15,11 +15,13 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
 public class UserPackageCommandService implements IUserPackageCommandService {
     private final UserPackageRepository repository;
+    private final NotificationCommandService notificationCommandService;
     private final RabbitTemplate rabbitTemplate;
     private final UsagePackageRepository usagePackageRepository;
 
@@ -57,7 +59,13 @@ public class UserPackageCommandService implements IUserPackageCommandService {
         event.setExpirationDate(purchase.getExpirationDate());
         event.setTransactionMethod(purchase.getTransactionMethod());
         event.setStatus(purchase.getStatus());
-
+        notificationCommandService.sendNotification(String.valueOf(purchase.getUser().getUserId()),  "Mua gói dịch vụ thành công",
+                String.format(
+                        "Bạn đã mua thành công gói dịch vụ: %s với thời hạn %d ngày. Gói sẽ hết hạn vào ngày %s.",
+                        usagePackage.getName(),
+                        usagePackage.getDaysLimit(),
+                        purchase.getExpirationDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+                ));
         rabbitTemplate.convertAndSend(
                 RabbitMQConfig.USER_PACKAGE_EXCHANGE,
                 RabbitMQConfig.USER_PACKAGE_ROUTING_KEY_CREATED,
@@ -121,7 +129,8 @@ public class UserPackageCommandService implements IUserPackageCommandService {
             UserPackageStatusEvent event = new UserPackageStatusEvent();
             event.setId(id);
             event.setStatus(UserPackageStatus.BLOCKED);
-
+notificationCommandService.sendNotification(String.valueOf(entity.getUser().getUserId()), "Gói dịch vụ đã bị khóa",
+        "Gói dịch vụ của bạn đã bị khóa do vi phạm quy định hoặc lý do bảo mật. Vui lòng liên hệ bộ phận hỗ trợ để biết thêm chi tiết.");
             rabbitTemplate.convertAndSend(
                     RabbitMQConfig.USER_PACKAGE_EXCHANGE,
                     RabbitMQConfig.USER_PACKAGE_ROUTING_KEY_STATUS,
@@ -139,7 +148,11 @@ public class UserPackageCommandService implements IUserPackageCommandService {
             UserPackageStatusEvent event = new UserPackageStatusEvent();
             event.setId(id);
             event.setStatus(UserPackageStatus.ACTIVE);
-
+            notificationCommandService.sendNotification(
+                    entity.getUser().getUserId().toString(),
+                    "Gói dịch vụ đã được mở khóa",
+                    "Gói dịch vụ của bạn đã được mở khóa và hiện đang hoạt động trở lại. Bạn có thể tiếp tục sử dụng các chức năng như bình thường."
+            );
             rabbitTemplate.convertAndSend(
                     RabbitMQConfig.USER_PACKAGE_EXCHANGE,
                     RabbitMQConfig.USER_PACKAGE_ROUTING_KEY_STATUS,
