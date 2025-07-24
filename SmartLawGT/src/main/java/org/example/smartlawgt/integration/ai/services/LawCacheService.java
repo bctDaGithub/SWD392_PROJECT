@@ -149,7 +149,7 @@ public class LawCacheService {
                         .get(QUESTION_ANSWER_PREFIX + bestMatchHash);
 
                 log.info("Found similar cached answer with similarity: {}", bestSimilarity);
-                return answer + String.format("\n\n[Từ cache - độ tương tự: %.1f%%]", bestSimilarity * 100);
+                return answer;
             }
 
             log.debug("No similar cached answer found above threshold: {}", similarityThreshold);

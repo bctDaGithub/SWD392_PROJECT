@@ -58,7 +58,7 @@ public class GeminiApiService {
             return "Bạn đã sử dụng hết số lượt hỏi hôm nay. Vui lòng quay lại vào ngày mai.";
         }
 
-        // 3. Check cache first - NEW FEATURE
+        // 3. Check cache first
         String cachedAnswer = null;
         boolean usedCache = false;
 

@@ -1,63 +1,71 @@
 
 ============================================================
-=== THÊM NGÀY: 23/07/2025 11:54:23 ===
+=== THÊM NGÀY: 24/07/2025 11:10:07 ===
 ============================================================
 
-=== BẮT ĐẦU LUẬT ===
-Số hiệu: 01/2024/QH
-Tên luật: Phạt vượt đèn đỏ phạt 500 triệu kìa
-Loại: Lu?t m?i
-Ngày ban hành: 30/07/2025
-Ngày hiệu lực: 05/07/2025
-Ngày hết hiệu lực: 30/06/2025
-Cơ quan ban hành: Quốc Hội
+LAW
+number: 01/2024/QH
+title: Phạt vượt đèn đỏ phạt 500 triệu kìa
+type: Lu?t m?i
+issued: 30/07/2025 17:00:00
+effective: 05/07/2025 17:00:00
+expired: 30/06/2025 17:00:00
+agency: Quốc Hội
+content: Phạt vượt đèn đỏ phạt 500 triệu kìa
+url: https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Luat-giao-thong-duong-bo-2008-23-2008-QH12-82203.aspx
+END
 
-Nội dung chính:
-Phạt vượt đèn đỏ phạt 500 triệu kìa
-Link tài liệu: https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Luat-giao-thong-duong-bo-2008-23-2008-QH12-82203.aspx
-=== KẾT THÚC LUẬT ===
 
-=== BẮT ĐẦU LUẬT ===
-Số hiệu: 01/2025/QH
-Tên luật: Đánh võng phạt 100000 nghìn thôi
-Loại: Lu?t m?i
-Ngày ban hành: 23/07/2025
-Ngày hiệu lực: 23/07/2025
-Ngày hết hiệu lực: 23/07/2025
-Cơ quan ban hành: Qu?c H?i
+LAW
+number: 01/2025/QH
+title: Đánh võng phạt 100000 nghìn thôi
+type: Lu?t m?i
+issued: 23/07/2025 04:52:51
+effective: 23/07/2025 04:52:51
+expired: 23/07/2025 04:52:51
+agency: Qu?c H?i
+content: Đánh võng phạt 100000 nghìn thôi
+url: string
+END
 
-Nội dung chính:
-Đánh võng phạt 100000 nghìn thôi
-Link tài liệu: string
-=== KẾT THÚC LUẬT ===
 
-=== BẮT ĐẦU LUẬT ===
-Số hiệu: 01/2025/QH/111
-Tên luật: ok
-Loại: Van b?n cu
-Ngày ban hành: 07/07/2025
-Ngày hiệu lực: 21/07/2025
-Ngày hết hiệu lực: 23/07/2025
-Cơ quan ban hành: Quốc Hội
+LAW
+number: 01/2025/QH/111
+title: ok
+type: Van b?n cu
+issued: 07/07/2025 17:00:00
+effective: 21/07/2025 17:00:00
+expired: 23/07/2025 17:00:00
+agency: Quốc Hội
+content: ok
+url: https://noidung.quochoi.vn/
+END
 
-Nội dung chính:
-ok
-Link tài liệu: https://noidung.quochoi.vn/
-=== KẾT THÚC LUẬT ===
 
---- Đã thêm 3 luật ---
+LAW
+number: 02/2024/QH
+title: Tông xe sẽ bị phạt ngồi xổm
+type: Ngh? d?nh
+issued: 09/07/2025 17:00:00
+effective: 22/07/2025 17:00:00
+expired: 27/07/2025 17:00:00
+agency: Quốc Hội
+content: Tông xe sẽ bị phạt ngồi xổm
+url: http://localhost:5173/admin
+END
 
---- Thêm lúc: 23/07/2025 12:08:10 ---
-=== BẮT ĐẦU LUẬT ===
-Số hiệu: 1
-Tên luật: Đánh cảnh sát giao thông phạt ở tù
-Loại: Lu?t m?i
-Ngày ban hành: 23/07/2025
-Ngày hiệu lực: 23/07/2025
-Ngày hết hiệu lực: 23/07/2025
-Cơ quan ban hành: Qu?c H?i
 
-Nội dung chính:
-Đánh cảnh sát giao thông phạt ở tù
-Link tài liệu: string
-=== KẾT THÚC LUẬT ===
+LAW
+number: 12345
+title: Đánh cảnh sát giao thông phạt ở tù
+type: Ngh? d?nh
+issued: 22/07/2025 22:07:03
+effective: 22/07/2025 22:07:03
+expired: 22/07/2025 22:07:03
+agency: Qu?c H?i
+content: Đánh cảnh sát giao thông phạt ở tù
+url: N/A
+END
+
+
+--- Đã thêm 5 luật ---
