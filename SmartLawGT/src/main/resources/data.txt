@@ -69,3 +69,17 @@ END
 
 
 --- Đã thêm 5 luật ---
+
+--- Thêm lúc: 24/07/2025 20:41:51 ---
+LAW
+number: 01/2024/TT
+title: Ngồi ngoài đường bị phạt 200 nghìn
+type: Thông tu
+issued: 29/07/2025 17:00:00
+effective: 30/07/2025 17:00:00
+expired: 22/07/2026 17:00:00
+agency: Bộ giao thông
+content: Ngồi ngoài đường bị phạt 200 nghìn
+url: N/A
+END
+
