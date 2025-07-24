@@ -153,6 +153,18 @@
             <artifactId>spring-boot-starter-mail</artifactId>
             <version>3.5.0</version>
         </dependency>
+
+        <!-- Redis -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <!-- Apache Commons Codec for hashing -->
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+        </dependency>
     </dependencies>
 
 

@@ -1,28 +1,71 @@
 
---- Thêm lúc: 21/07/2025 16:35:26 ---
-=== BẮT ĐẦU LUẬT ===
-Số hiệu: 01/2024
-Tên luật: Tất cả phương tiện lấn làn sẽ bị phạt 400000 VND
-Loại: Lu?t m?i
-Ngày ban hành: 08/07/2025
-Ngày hiệu lực: 07/09/2025
-Ngày hết hiệu lực: 28/08/2025
-Cơ quan ban hành: Quốc Hội
+============================================================
+=== THÊM NGÀY: 24/07/2025 11:10:07 ===
+============================================================
 
-Nội dung chính:
-Tất cả phương tiện lấn làn sẽ bị phạt 400000 VND
-=== KẾT THÚC LUẬT ===
+LAW
+number: 01/2024/QH
+title: Phạt vượt đèn đỏ phạt 500 triệu kìa
+type: Lu?t m?i
+issued: 30/07/2025 17:00:00
+effective: 05/07/2025 17:00:00
+expired: 30/06/2025 17:00:00
+agency: Quốc Hội
+content: Phạt vượt đèn đỏ phạt 500 triệu kìa
+url: https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Luat-giao-thong-duong-bo-2008-23-2008-QH12-82203.aspx
+END
 
---- Thêm lúc: 21/07/2025 16:39:13 ---
-=== BẮT ĐẦU LUẬT ===
-Số hiệu: 01/2025/QH
-Tên luật: Đánh võng phạt 200 triệu
-Loại: Lu?t m?i
-Ngày ban hành: 08/07/2025
-Ngày hiệu lực: 23/07/2025
-Ngày hết hiệu lực: 30/07/2025
-Cơ quan ban hành: Quốc Hội
 
-Nội dung chính:
-Đánh võng phạt 200 triệu
-=== KẾT THÚC LUẬT ===
+LAW
+number: 01/2025/QH
+title: Đánh võng phạt 100000 nghìn thôi
+type: Lu?t m?i
+issued: 23/07/2025 04:52:51
+effective: 23/07/2025 04:52:51
+expired: 23/07/2025 04:52:51
+agency: Qu?c H?i
+content: Đánh võng phạt 100000 nghìn thôi
+url: string
+END
+
+
+LAW
+number: 01/2025/QH/111
+title: ok
+type: Van b?n cu
+issued: 07/07/2025 17:00:00
+effective: 21/07/2025 17:00:00
+expired: 23/07/2025 17:00:00
+agency: Quốc Hội
+content: ok
+url: https://noidung.quochoi.vn/
+END
+
+
+LAW
+number: 02/2024/QH
+title: Tông xe sẽ bị phạt ngồi xổm
+type: Ngh? d?nh
+issued: 09/07/2025 17:00:00
+effective: 22/07/2025 17:00:00
+expired: 27/07/2025 17:00:00
+agency: Quốc Hội
+content: Tông xe sẽ bị phạt ngồi xổm
+url: http://localhost:5173/admin
+END
+
+
+LAW
+number: 12345
+title: Đánh cảnh sát giao thông phạt ở tù
+type: Ngh? d?nh
+issued: 22/07/2025 22:07:03
+effective: 22/07/2025 22:07:03
+expired: 22/07/2025 22:07:03
+agency: Qu?c H?i
+content: Đánh cảnh sát giao thông phạt ở tù
+url: N/A
+END
+
+
+--- Đã thêm 5 luật ---
