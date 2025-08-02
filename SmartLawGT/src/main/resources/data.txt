@@ -1,6 +1,6 @@
 
 ============================================================
-=== THÊM NGÀY: 24/07/2025 21:33:47 ===
+=== THÊM NGÀY: 25/07/2025 15:53:58 ===
 ============================================================
 
 LAW
@@ -13,6 +13,32 @@ expired: 29/07/2025 10:00:00
 agency: Quốc hội khóa XV
 content: Luật quy định đầy đủ về quy tắc tham gia giao thông đường bộ, cấp – thu hồi GPLX, và quản lý vi phạm hành chính. Lần đầu áp dụng hệ thống điểm cho giấy phép lái xe (12 điểm/năm, bị trừ khi vi phạm). Giao quyền lớn hơn cho lực lượng CSGT và thiết lập cơ sở dữ liệu giao thông đồng bộ toàn quốc.
 url: https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Luat-trat-tu-an-toan-giao-thong-duong-bo-2024-so-36-2024-QH15-444251.aspx?utm_source=chatgpt.com
+END
+
+
+LAW
+number: 01/01/2024/QH
+title: Demo
+type: Luật
+issued: 15/07/2025 17:00:00
+effective: 17/07/2025 17:00:00
+expired: N/A
+agency: Quốc Hội
+content: Demo
+url: https://thuvienphapluat.vn/van-ban/Giao-thong-Van-tai/Luat-trat-tu-an-toan-giao-thong-duong-bo-2024-so-36-2024-QH15-444251.aspx?utm_source=chatgpt.com
+END
+
+
+LAW
+number: 123/2025/QH
+title: Vượt đèn đỏ giảm xuống phạt 100000 VNĐ
+type: Luật
+issued: 14/07/2025 10:00:00
+effective: 30/07/2025 10:00:00
+expired: N/A
+agency: Chính phủ
+content: Vượt đèn đỏ giảm xuống phạt 100000 VNĐ
+url: N/A
 END
 
 
@@ -31,13 +57,13 @@ END
 
 LAW
 number: 165/2024/NDCP
-title: Hướng dẫn điều kiện kinh doanh dịch vụ thẩm tra an toàn giao thông đường bộ, phù hợp các điều khoản của Luật.
+title: Phạt đèn đỏ phạt 200 triệu
 type: Nghị định
-issued: 30/12/2024 17:00:00
-effective: 31/12/2024 17:00:00
+issued: 30/12/2024 10:00:00
+effective: 24/07/2025 17:00:00
 expired: N/A
 agency: Chính phủ
-content: Hướng dẫn điều kiện kinh doanh dịch vụ thẩm tra an toàn giao thông đường bộ, phù hợp các điều khoản của Luật.
+content: Phạt đèn đỏ phạt 200 triệu
 url: https://thuvienphapluat.vn/chu-de-van-ban/391/tong-hop-van-ban-huong-dan-luat-trat-tu-an-toan-giao-thong-duong-bo-2024?utm_source=chatgpt.com
 END
 
@@ -69,6 +95,19 @@ END
 
 
 LAW
+number: 234/2024/QH123
+title: Lấn làn bây giờ đã bị phạt đến 3000000 VNĐ
+type: Nghị định
+issued: 23/07/2025 17:00:00
+effective: 24/07/2025 17:00:00
+expired: N/A
+agency: Quốc hội khóa XV
+content: Lấn làn bây giờ đã bị phạt đến 3000000 VNĐ
+url: N/A
+END
+
+
+LAW
 number: 35/2018/QH14
 title: Điều chỉnh Luật Giao thông đường bộ và các luật khác liên quan đến quy hoạch mạng lưới đường bộ quốc gia, đô thị.
 type: Luật
@@ -81,9 +120,6 @@ url: https://thuvienphapluat.vn/van-ban/Xay-dung-Do-thi/Luat-sua-doi-cac-Luat-co
 END
 
 
---- Đã thêm 6 luật ---
-
---- Thêm lúc: 24/07/2025 21:35:05 ---
 LAW
 number: 37/2024/QH15
 title: Luật tách riêng về quản lý kết cấu hạ tầng đường bộ, từ quy hoạch, xây dựng, bảo trì, đến quản lý trạm thu phí, biển báo, cầu đường. Đặt ra tiêu chuẩn kỹ thuật mới và cơ chế đầu tư hạ tầng theo hình thức đối tác công tư (PPP).
@@ -96,3 +132,5 @@ content: Luật tách riêng về quản lý kết cấu hạ tầng đường b
 url: https://vi.wikisource.org/wiki/Lu%E1%BA%ADt_s%E1%BB%ADa_%C4%91%E1%BB%95i%2C_b%E1%BB%95_sung_m%E1%BB%99t_s%E1%BB%91_%C4%91i%E1%BB%81u_c%E1%BB%A7a_37_lu%E1%BA%ADt_c%C3%B3_li%C3%AAn_quan_%C4%91%E1%BA%BFn_quy_ho%E1%BA%A1ch?utm_source=chatgpt.com
 END
 
+
+--- Đã thêm 10 luật ---
